@@ -1,0 +1,9 @@
+svg.star-svg {
+  display: inline;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
