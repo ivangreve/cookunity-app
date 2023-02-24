@@ -21,9 +21,9 @@ export class UserSeed {
 
         const userCustomer = await this.userService.create({
             name: "Customer User",
-            email: "chef@cookunity.com",
+            email: "customer@cookunity.com",
             role: "CUSTOMER",
-            password: "chef"
+            password: "customer"
         });
         console.log(userCustomer);
     }

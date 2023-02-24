@@ -18,3 +18,20 @@ docker-compose up mongo_db_service
 
 cd cookunity-app
 docker-compose up engine_service
+
+Login
+/auth/login
+
+## Seed Data
+
+yarn nestjs-command create:user
+
+{
+"email": "chef@cookunity.com",
+"password": "chef"
+}
+or
+{
+"email": "customer@cookunity.com",
+"password": "customer"
+}
