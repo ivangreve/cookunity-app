@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  engine_service:
+    container_name: engine
+    image: engine:latest
+    depends_on:
+      - 'mongodb_service'
+    build:
+      context: './api'
+      dockerfile: ./Dockerfile
+    ports:
+      - '4000:4000'
+    networks:
+      - backend_network
+    restart: always
+    env_file:
+      - ./api/enviroments/.env
+
+  mongodb_service:
+    container_name: mongodb_service
+    image: mongo:latest
+    restart: always
+    networks:
+      - backend_network
+    environment:
+      MONGO_INITDB_DATABASE: initial_bd
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      # <Port exposed> : < MongoDB Port running inside container>
+      - 27017:27017
+    volumes:
+      # Where our data will be persisted
+      - mongodb_data_container:/data/db
+networks:
+  backend_network:
+    driver: bridge
+
+# Names our volume
+volumes:
+  mongodb_data_container:

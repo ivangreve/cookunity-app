@@ -1,12 +1,17 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('App Controller')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor() { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get("healthcheck")
+  @ApiOperation({ summary: 'Endpoint to check if api is alive' })
+  getHello(): any {
+    return {
+      status: true,
+      description: "Api is Alive! 😊🎉"
+    }
   }
 }
