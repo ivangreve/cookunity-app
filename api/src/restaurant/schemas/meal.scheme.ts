@@ -5,6 +5,8 @@ export type MealDocument = Meal & Document;
 
 @Schema()
 export class Meal {
+    _id: Types.ObjectId;
+
     @Prop({ required: true })
     name: string;
 
@@ -16,6 +18,8 @@ export class Meal {
 
     @Prop({ required: true })
     image: string;
+
+    rating: number;
 }
 
 export const MealSchema = SchemaFactory.createForClass(Meal);

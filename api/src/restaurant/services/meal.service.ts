@@ -29,7 +29,7 @@ export class MealService {
         }
     }
 
-    async findById(id: number): Promise<Meal> {
+    async findById(id: string): Promise<Meal> {
         try {
             const meal = await this.mealModel.findOne({ id }).populate({
                 path: 'chef',
@@ -44,7 +44,7 @@ export class MealService {
         }
     }
 
-    async update(id: number, meal: Meal): Promise<Meal> {
+    async update(id: string, meal: Meal): Promise<Meal> {
         try {
             const updatedMeal = await this.mealModel.findOneAndUpdate({ id }, meal, {
                 new: true,
@@ -58,7 +58,7 @@ export class MealService {
         }
     }
 
-    async delete(id: number): Promise<void> {
+    async delete(id: string): Promise<void> {
         try {
             const result = await this.mealModel.deleteOne({ id }).exec();
             if (result.deletedCount === 0) {
