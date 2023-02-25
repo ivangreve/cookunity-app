@@ -1,7 +1,9 @@
+import { User } from "../pages/PublicPages/models";
+
 export class Meal {
     id!: number;
     name!: string;
-    chef!: string;
+    chef!: any;
     description?: string;
     rating!: {
         average: number;

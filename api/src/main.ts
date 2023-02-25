@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import { DocumentBuilder } from '@nestjs/swagger/dist';
 import { AppModule } from './app.module';
-import * as cookieParser from 'cookie-parser';
+import { AllExceptionsFilter } from './http.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,7 +17,8 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   app.enableCors();
-  app.use(cookieParser());
+  app.useGlobalFilters(new AllExceptionsFilter());
+
   await app.listen(process.env.PORT || 4000);
 }
 bootstrap();

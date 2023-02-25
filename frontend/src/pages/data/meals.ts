@@ -1,48 +1,68 @@
 import { Meal } from "../../models/Meal.model";
 
+// export const MEALS_MOCK = [
+//   {
+//     "name": "Grilled Salmon with Lemon and Herbs",
+//     "chef": "63f98969b3d60b7ed5bd166a",
+//     "description": "Fresh salmon fillet grilled to perfection, served with a tangy lemon and herb sauce.",
+//     "image": "https://static01.nyt.com/images/2017/04/14/dining/14COOKING-SALMON-WITH-LEMON/14COOKING-SALMON-WITH-LEMON-master768.jpg?w=1280&q=75"
+//   },
+//   {
+//     "name": "Pan-Seared Scallops with Brown Butter",
+//     "chef": "63f98969b3d60b7ed5bd166a",
+//     "description": "Jumbo sea scallops seared to a golden brown and finished with a rich brown butter sauce.",
+//     "image": "https://www.jerseygirlcooks.com/wp-content/uploads/2021/02/beer-scallops.jpg",
+//   },
+//   {
+//     "name": "Braised Short Ribs",
+//     "chef": "63f98969b3d60b7ed5bd166d",
+//     "description": "Tender short ribs braised in a rich red wine sauce, served with mashed potatoes.",
+//     "image": "https://www.thehungryhutch.com/wp-content/uploads/2020/12/Simple-Braised-Beef-Short-Ribs-Recipe-HERO-720x540.jpg"
+//   },
+//   {
+//     "name": "Macaroni and Cheese with Truffle Oil",
+//     "chef": "63f98969b3d60b7ed5bd166d",
+//     "description": "Creamy macaroni and cheese made with a blend of artisanal cheeses and finished with a drizzle of truffle oil.",
+//     "image": "https://theviewfromgreatisland.com/wp-content/uploads/2019/01/truffle-macaroni-and-cheese-3994-January-06-2019.jpg"
+//   }
+// ]
+
+
 export const MEALS_MOCK = [
-  new Meal({
-    id: 1,
-    name: "Grilled Salmon with Lemon and Herbs",
-    chef: "John Smith",
-    description: "Fresh salmon fillet grilled to perfection, served with a tangy lemon and herb sauce.",
-    rating: {
-      average: 4.5,
-      count: 10
+  {
+    "_id": "63f98a6863480500d126af95",
+    "name": "Macaroni and Cheese with Truffle Oil",
+    "chef": {
+      "_id": "63f98969b3d60b7ed5bd166d",
+      "name": "Christophe Krywonis",
+      "email": "christophe@cookunity.com"
     },
-    image: "https://static01.nyt.com/images/2017/04/14/dining/14COOKING-SALMON-WITH-LEMON/14COOKING-SALMON-WITH-LEMON-master768.jpg?w=1280&q=75"
-  }),
-  new Meal({
-    id: 2,
-    name: "Pan-Seared Scallops with Brown Butter",
-    chef: "John Smith",
-    description: "Jumbo sea scallops seared to a golden brown and finished with a rich brown butter sauce.",
-    rating: {
-      average: 4.2,
-      count: 8
+    "description": "Creamy macaroni and cheese made with a blend of artisanal cheeses and finished with a drizzle of truffle oil.",
+    "image": "https://theviewfromgreatisland.com/wp-content/uploads/2019/01/truffle-macaroni-and-cheese-3994-January-06-2019.jpg",
+    "__v": 0
+  },
+  {
+    "_id": "63f98a7363480500d126af97",
+    "name": "Braised Short Ribs",
+    "chef": {
+      "_id": "63f98969b3d60b7ed5bd166d",
+      "name": "Christophe Krywonis",
+      "email": "christophe@cookunity.com"
     },
-    image: "https://www.jerseygirlcooks.com/wp-content/uploads/2021/02/beer-scallops.jpg"
-  }),
-  new Meal({
-    id: 3,
-    name: "Braised Short Ribs",
-    chef: "Emily Jones",
-    description: "Tender short ribs braised in a rich red wine sauce, served with mashed potatoes.",
-    rating: {
-      average: 4.7,
-      count: 6
+    "description": "Tender short ribs braised in a rich red wine sauce, served with mashed potatoes.",
+    "image": "https://www.thehungryhutch.com/wp-content/uploads/2020/12/Simple-Braised-Beef-Short-Ribs-Recipe-HERO-720x540.jpg",
+    "__v": 0
+  },
+  {
+    "_id": "63f98a7d63480500d126af99",
+    "name": "Grilled Salmon with Lemon and Herbs",
+    "chef": {
+      "_id": "63f98969b3d60b7ed5bd166a",
+      "name": "Donato de Santis",
+      "email": "donato@cookunity.com"
     },
-    image: "https://www.thehungryhutch.com/wp-content/uploads/2020/12/Simple-Braised-Beef-Short-Ribs-Recipe-HERO-720x540.jpg"
-  }),
-  new Meal({
-    id: 4,
-    name: "Macaroni and Cheese with Truffle Oil",
-    chef: "Emily Jones",
-    description: "Creamy macaroni and cheese made with a blend of artisanal cheeses and finished with a drizzle of truffle oil.",
-    rating: {
-      average: 4.0,
-      count: 9
-    },
-    image: "https://theviewfromgreatisland.com/wp-content/uploads/2019/01/truffle-macaroni-and-cheese-3994-January-06-2019.jpg"
-  })
-];
+    "description": "Fresh salmon fillet grilled to perfection, served with a tangy lemon and herb sauce.",
+    "image": "https://static01.nyt.com/images/2017/04/14/dining/14COOKING-SALMON-WITH-LEMON/14COOKING-SALMON-WITH-LEMON-master768.jpg?w=1280&q=75",
+    "__v": 0
+  }
+]

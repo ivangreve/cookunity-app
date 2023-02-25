@@ -4,10 +4,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthController } from 'src/auth/controllers/auth.controller';
 import { AuthService } from 'src/auth/services/auth.service';
 import { AuthModule } from 'src/auth/auth.module';
+import { RestaurantModule } from './restaurant/restaurant.module';
 
 @Module({
   imports: [
-
+    RestaurantModule,
     MongooseModule.forRoot('mongodb://root:rootpassword@127.0.0.1:27017/initial_bd?authSource=admin'),
 
     // With docker engine

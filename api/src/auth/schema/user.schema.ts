@@ -6,14 +6,15 @@ export interface User extends Document {
     name: string;
     email: string;
     role: string;
+    image: string;
     readonly password: string;
     createdAt: Date;
 }
 
-export const userSchema = new mongoose.Schema({
-    // user schema
+export const UserSchema = new mongoose.Schema({
     name: String,
     email: String,
+    image: String,
     role: {
         type: String,
         default: 'CUSTOMER'
@@ -28,8 +29,9 @@ export const userSchema = new mongoose.Schema({
         default: Date.now,
     },
 });
+
 // Pre-save hook to hash the password
-userSchema.pre('save', async function (next: any) {
+UserSchema.pre('save', async function (next: any) {
     try {
         if (!this.isModified('password')) {
             return next();

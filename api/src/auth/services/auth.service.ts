@@ -1,4 +1,3 @@
-import { Injectable } from '@nestjs/common';
 import { sign } from 'jsonwebtoken';
 import { jwtConstants } from '../constants';
 import { UserService } from './user.service';

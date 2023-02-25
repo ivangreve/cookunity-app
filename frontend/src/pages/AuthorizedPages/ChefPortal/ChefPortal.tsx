@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "../../../components/Card/Card";
 import Modal from "../../../components/Modal/Modal";
 import { LoggedUserLayout } from "../../../layouts";
@@ -10,9 +10,10 @@ import "./ChefPortal.css";
 export default function ChefPortal() {
   return (
     <LoggedUserLayout>
-      <span>
+      <p className="text-center text-4xl font-bold m-5">Welcome Chef!</p>
+      {/* <span>
         <StarIcon htmlColor="#ffbc0b" fontSize="large"></StarIcon>
-      </span>
+      </span> */}
       <div className="cardsContainer">
         {MEALS_MOCK.map((meal) => (
           <div className="m-3">
