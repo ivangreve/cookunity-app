@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 import { Meal } from '../schemas/meal.scheme';
 import { MealRatingService } from '../services/meal-rating.service';
 import { MealService } from '../services/meal.service';
@@ -22,14 +23,25 @@ export class MealController {
     @ApiOkResponse({ description: 'Retrieved all meals successfully.', type: [Meal] })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
     @Get()
-    async findAll(): Promise<Meal[]> {
+    async findAll(): Promise<any[]> {
         const meals = await this.mealService.findAll();
-        // const mealsRated = await meals.map(async m => {
-        //     const rate = await this.mealRatingService.getAverageRatingByMealId(m._id);
-        //     m.rating = rate
-        // });
-        // console.log(mealsRated)
-        return meals;
+        const ratePerMeal = await this.mealRatingService.getAverageRatingPerMeal();
+
+        const ratePerMealMap = new Map<string, number>();
+        for (const { mealId, rating } of ratePerMeal) {
+            ratePerMealMap.set(mealId.toString(), rating);
+        }
+
+        const mealsWithRate = meals.map(m => ({
+            _id: m._id,
+            name: m.name,
+            chef: m.chef,
+            desciption: m.description,
+            image: m.image,
+            rating: ratePerMealMap.has(m._id.toString()) ? ratePerMealMap.get(m._id.toString()) : 0
+
+        }))
+        return mealsWithRate;
     }
 
     @ApiOperation({ summary: 'Get meal by id' })
@@ -67,6 +79,7 @@ export class MealController {
         await this.mealService.delete(mealId);
 
     }
+
 }
 
 

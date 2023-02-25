@@ -40,11 +40,11 @@ export class MealRatingService {
 
     async getAverageRatingPerMeal(): Promise<{ mealId: Types.ObjectId; rating: number }[]> {
         const ratings = await this.mealRatingModel.aggregate([
-            { $group: { _id: '$meal', rating: { $avg: '$rating' } } },
-            { $project: { _id: 0, mealId: '$_id', rating: 1 } },
+            { $group: { _id: '$meal', rating: { $avg: '$rating' }, count: { $sum: 1 } } },
+            { $project: { _id: 0, mealId: '$_id', rating: 1, count: 1 } },
         ]);
 
-        return ratings.map((rating) => ({ mealId: rating.mealId, rating: rating.rating }));
+        return ratings.map((rating) => ({ mealId: rating.mealId, rating: rating.rating, count: rating.count }));
     }
 
     async getAverageRatingByMealId(mealId: Types.ObjectId): Promise<number> {

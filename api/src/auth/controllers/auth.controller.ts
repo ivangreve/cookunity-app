@@ -46,7 +46,7 @@ export class AuthController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get('authorizedEndpointCheck')
+    @Get('authorized-endpoint-check')
     @ApiOperation({ summary: 'Mocked endpoint to check authorized request' })
     @ApiResponse({ status: 200, description: 'Is an authorized User' })
     @ApiResponse({ status: 401, description: 'Is an unauthorized user' })
