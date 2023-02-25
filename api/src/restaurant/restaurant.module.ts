@@ -9,7 +9,7 @@ import { MealService } from './services/meal.service';
 
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://root:rootpassword@127.0.0.1:27017/initial_bd?authSource=admin'),
+        MongooseModule.forRoot(process.env.MONGO_CONNECTION),
         MongooseModule.forFeature([
             { name: Meal.name, schema: MealSchema },
             { name: MealRating.name, schema: MealRatingSchema }
