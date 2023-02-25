@@ -1,28 +1,44 @@
-import React, { useState } from "react";
-import Card from "../../../components/Card/Card";
-import Modal from "../../../components/Modal/Modal";
+import React, { useState, useEffect } from "react";
+import Grid from "@mui/material/Grid";
+import { getAllMeals } from "../services/meal.service";
+import { Meal } from "../../../models";
+import MealCard from "../../../components/MealCard/MealCard";
 import { LoggedUserLayout } from "../../../layouts";
-import { MEALS_MOCK } from "../../data/meals";
-import StarIcon from "@mui/icons-material/Star";
-
-import "./ChefPortal.css";
+import { useSelector } from "react-redux";
 
 export default function ChefPortal() {
+  const [meals, setMeals] = useState<Meal[]>([]);
+  const [rateAvg, setRateAvg] = useState(0);
+  const user = useSelector((state) => state.user.user);
+
+  const fetchAllMeals = async () => {
+    const meals = await getAllMeals();
+    setMeals(meals.data);
+    calculateAvg();
+  };
+
+  const calculateAvg = () => {
+    const totalRatings = meals.reduce((total, meal) => total + meal.rating, 0);
+    const averageRating = meals.length ? totalRatings / meals.length : 0;
+    debugger;
+    setRateAvg(averageRating.toFixed(1));
+  };
+
+  useEffect(() => {
+    fetchAllMeals();
+  }, []);
+
   return (
     <LoggedUserLayout>
-      <p className="text-center text-4xl font-bold m-5">Welcome Chef!</p>
-      {/* <span>
-        <StarIcon htmlColor="#ffbc0b" fontSize="large"></StarIcon>
-      </span> */}
-      <div className="cardsContainer">
-        {MEALS_MOCK.map((meal) => (
-          <div className="m-3">
-            <Card key={meal.id} meal={meal}></Card>
-          </div>
+      <h1>Welcome {user && user.name}!</h1>
+      <h2>Rate average: {rateAvg}</h2>
+      <Grid container spacing={4}>
+        {meals.map((meal) => (
+          <Grid item key={meal._id} xs={12} sm={6} md={4}>
+            <MealCard meal={meal}></MealCard>
+          </Grid>
         ))}
-      </div>
-
-      <Modal></Modal>
+      </Grid>
     </LoggedUserLayout>
   );
 }

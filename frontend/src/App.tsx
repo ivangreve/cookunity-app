@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import {
   createBrowserRouter,
   Navigate,
@@ -14,6 +14,8 @@ import ChefPortal from "./pages/AuthorizedPages/ChefPortal/ChefPortal";
 import CustomerPortal from "./pages/AuthorizedPages/CustomerPortal/CustomerPortal";
 import RoleGuard from "./guards/role.guard";
 import { Roles } from "./models/roles";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 const router = createBrowserRouter([
   {
@@ -59,7 +61,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
+  );
 }
 
 export default App;

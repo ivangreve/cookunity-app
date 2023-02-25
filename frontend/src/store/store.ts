@@ -1,12 +1,8 @@
-import { User, UserLoginResponse } from "../pages/PublicPages/models";
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit';
+import { userSlice } from './states/user.state';
 
-export interface AppStore {
-    user: User
-}
-
-export default configureStore<AppStore>({
+export default configureStore({
     reducer: {
-        user: userReducer
-    }
-})
+        user: userSlice.reducer,
+    },
+});

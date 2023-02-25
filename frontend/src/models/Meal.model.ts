@@ -1,17 +1,25 @@
-import { User } from "../pages/PublicPages/models";
+export interface Chef {
+    _id: string;
+    name: string;
+    email: string;
+}
 
-export class Meal {
-    id!: number;
-    name!: string;
-    chef!: any;
-    description?: string;
-    rating!: {
-        average: number;
-        count: number;
-    };
-    image?: string;
+export interface Meal {
+    _id: string;
+    name: string;
+    chef: Chef;
+    description: string;
+    image: string;
+    rating: number;
+}
 
-    constructor(data: Partial<Meal> = {}) {
+export class MealDto {
+    constructor(data: Partial<MealDto> = {}) {
         Object.assign(this, data)
     }
+    name!: string;
+    chef!: string;
+    description?: string;
+    image?: string;
+    rating?: number;
 }

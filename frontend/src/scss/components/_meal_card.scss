@@ -1,0 +1,55 @@
+svg.star-svg {
+    display: inline;
+}
+
+.meal_card_rating_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+}
+
+
+.meal_card_card {
+    min-height: 450px;
+    margin: "auto";
+
+    transition: "0.3s";
+    box-shadow: "0 8px 40px -12px rgba(0,0,0,0.3)";
+
+    &:hover {
+        box-shadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)";
+    }
+}
+
+.meal_card_media {
+    padding-top: "56.25%"
+}
+
+.meal_card_content {
+    text-align: "left";
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.divider {
+    margin: 10px
+}
+
+.meal_card_heading {
+    font-weight: "bold"
+}
+
+.meal_card_subheading {
+    line-height: 1.8
+}
+
+.meal_card_avatar {
+    display: "inline-block";
+    border: "2px solid white";
+
+    &:not(:first-of-type) {
+        margin-left: 5px
+    }
+}

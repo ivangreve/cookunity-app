@@ -1,10 +1,7 @@
-import { redirect } from "react-router-dom";
 import axiosClient from "../../../utilities/apiClient";
 import { SignInRequest } from "../models/sign-in.model";
 import { SignUpRequest } from "../models/sign-up.model";
 import { LocalStorageManager } from "../../../utilities";
-import { PrivateRoutes } from "../../../models";
-
 
 export function signIn(email: string, password: string) {
     const body = new SignInRequest(email, password);
@@ -14,6 +11,7 @@ export function signIn(email: string, password: string) {
 
         const localStorageManager = new LocalStorageManager();
         localStorageManager.setToken(token);
+        return response;
     });
 }
 

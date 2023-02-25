@@ -1,25 +1,46 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AuthLayout from "../../../layouts/AuthLayout";
-import { PrivateRoutes } from "../../../models";
-import { Roles } from "../../../models/roles";
-import { LocalStorageManager } from "../../../utilities";
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useTheme } from "@emotion/react";
 import { signIn } from "../services";
+import { LocalStorageManager } from "../../../utilities";
+import { PrivateRoutes, Roles } from "../../../models";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "../../../store/states/user.state";
 
-const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const theme = createTheme();
+
+export default function SignInSide() {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
 
-  const onSubmit = (event) => {
+  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const email = event.target.email.value;
-    const password = event.target.password.value;
+    const data = new FormData(event.currentTarget);
+    const loginInfo = {
+      email: data.get("email") + "",
+      password: data.get("password") + "",
+    };
 
-    signIn(email, password)
-      .then(() => {
-        const localStorageManager = new LocalStorageManager();
-        const role = localStorageManager.getRole();
+    signIn(loginInfo.email, loginInfo.password)
+      .then((response) => {
+        debugger;
+        dispatch(setUser(response.data.user));
+        dispatch(setToken(response.data.token));
+
+        const role = response.data.user.role;
         if (role === Roles.CHEF) {
           navigation(PrivateRoutes.CHEF_PORTAL);
           return;
@@ -28,8 +49,6 @@ const SignIn = () => {
           navigation(PrivateRoutes.CUSTOMER_PORTAL);
           return;
         }
-        setEmail("");
-        setPassword("");
       })
       .catch((e) => {
         // Show tooltip alert
@@ -37,77 +56,89 @@ const SignIn = () => {
       });
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
-      onSubmit(event);
-    }
-  };
-
   return (
-    <AuthLayout>
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign in to your account
-          </h1>
-          <form
-            onSubmit={onSubmit}
-            className="space-y-4 md:space-y-6"
-            action="#"
+    <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          sx={{
+            backgroundImage:
+              "url(https://media.lacucinaitaliana.com/photos/5f63174d4012464e51027c15/1:1/pass/cook%20unity.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <Box
+            sx={{
+              my: 8,
+              mx: 4,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
           >
-            <div>
-              <label
-                htmlFor="email"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Your email
-              </label>
-              <input
-                value={email}
-                onChange={(ev) => setEmail(ev.target.value)}
-                type="email"
-                name="email"
+            <Avatar sx={{ m: 1, bgcolor: "dark.secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+
+            <Typography component="h1" variant="h5">
+              Sign In
+            </Typography>
+            <Box
+              component="form"
+              noValidate
+              onSubmit={handleLogin}
+              sx={{ mt: 1 }}
+            >
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 id="email"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="user@email.com"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
               />
-            </div>
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Password
-              </label>
-              <input
-                value={password}
-                onChange={(ev) => setPassword(ev.target.value)}
-                onKeyDown={handleKeyDown}
-                type="password"
+              <TextField
+                margin="normal"
+                required
+                fullWidth
                 name="password"
+                label="Password"
+                type="password"
                 id="password"
-                placeholder="••••••••"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                autoComplete="current-password"
               />
-            </div>
-
-            <button className="w-full text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-              Login
-            </button>
-            <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-              Don’t have an account yet?{" "}
-              <a
-                href=""
-                className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                Sign up
-              </a>
-            </p>
-          </form>
-        </div>
-      </div>
-    </AuthLayout>
+                Sign In
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="/sign-up" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   );
-};
-
-export default SignIn;
+}

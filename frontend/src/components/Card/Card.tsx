@@ -31,10 +31,8 @@ function Card({ meal }: Params) {
           {meal.description}
         </p>
         <div className="ratingContainer">
-          <Rating readonly allowFraction initialValue={meal.rating.average} />
-          <span className="text-lg font-bold self-center">
-            {meal.rating.average}
-          </span>
+          <Rating readonly allowFraction initialValue={meal.rating} />
+          <span className="text-lg font-bold self-center">{meal.rating}</span>
         </div>
       </div>
     </div>

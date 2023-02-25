@@ -10,7 +10,6 @@ interface Props {
 export const RoleGuard = ({ role }: Props) => {
   const localStoreManager = new LocalStorageManager();
   const userRole = localStoreManager.getRole();
-  debugger;
   if (userRole === role) {
     return <Outlet />;
   } else {
