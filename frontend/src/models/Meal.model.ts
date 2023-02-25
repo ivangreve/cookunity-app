@@ -2,6 +2,7 @@ export interface Chef {
     _id: string;
     name: string;
     email: string;
+    image: string;
 }
 
 export interface Meal {

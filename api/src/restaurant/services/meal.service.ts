@@ -22,7 +22,7 @@ export class MealService {
         try {
             return this.mealModel.find().populate({
                 path: 'chef',
-                select: '_id name email',
+                select: '_id name email image',
             }).exec();
         } catch (error) {
             throw new Error(`Error retrieving meals: ${error.message}`);
@@ -33,7 +33,7 @@ export class MealService {
         try {
             const meal = await this.mealModel.findOne({ id }).populate({
                 path: 'chef',
-                select: '_id name email',
+                select: '_id name email image',
             }).exec();
             if (!meal) {
                 throw new Error(`Meal with id ${id} not found`);

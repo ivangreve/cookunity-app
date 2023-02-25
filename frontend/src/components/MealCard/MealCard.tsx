@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Avatar,
   Button,
   Card,
   CardActions,
@@ -13,9 +14,10 @@ import { Meal } from "../../models/Meal.model";
 
 interface Params {
   meal: Meal;
+  readonly?: boolean;
 }
 
-function MealCard({ meal }: Params) {
+function MealCard({ meal, readonly = true }: Params) {
   const [rating, setRating] = useState(0);
 
   // Catch Rating value
@@ -52,8 +54,19 @@ function MealCard({ meal }: Params) {
         <Divider className="divider" light />
 
         <div className="meal_card_rating_container">
-          <Rating readonly size={20} allowFraction initialValue={meal.rating} />
-          <span className="text-lg font-bold self-center">
+          <Avatar
+            sizes="sm"
+            alt="Meal Image"
+            src={meal.chef?.image ? meal.chef.image : ""}
+          />
+
+          <Rating
+            readonly={readonly}
+            size={20}
+            allowFraction
+            initialValue={meal.rating}
+          />
+          <span>
             {meal.rating}/<strong>5</strong>
           </span>
         </div>

@@ -8,16 +8,17 @@ import { useSelector } from "react-redux";
 
 export default function ChefPortal() {
   const [meals, setMeals] = useState<Meal[]>([]);
-  const [rateAvg, setRateAvg] = useState(0);
+  const [rateAvg, setRateAvg] = useState("0");
   const user = useSelector((state) => state.user.user);
 
   const fetchAllMeals = async () => {
     const meals = await getAllMeals();
     setMeals(meals.data);
-    calculateAvg();
+    debugger;
+    calculateAvg(meals.data);
   };
 
-  const calculateAvg = () => {
+  const calculateAvg = (meals: Meal[]) => {
     const totalRatings = meals.reduce((total, meal) => total + meal.rating, 0);
     const averageRating = meals.length ? totalRatings / meals.length : 0;
     debugger;

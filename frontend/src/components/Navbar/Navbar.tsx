@@ -19,25 +19,10 @@ const Navbar = () => {
 
   return (
     <AppBar position="relative">
-      <Toolbar
-        className="navbar_toolbar"
-        // style={{
-        //   backgroundColor: "black",
-        //   display: "flex",
-        //   flexDirection: "row",
-        //   justifyContent: "space-between",
-        // }}
-      >
+      <Toolbar className="navbar_toolbar">
         <Logo></Logo>
 
-        <span
-          // style={{
-          //   display: "flex",
-          //   flexDirection: "row",
-          //   justifyContent: "space-between",
-          // }}
-          className="navbar_right_item"
-        >
+        <span className="navbar_right_item">
           <Avatar alt="Remy Sharp" src={user?.image ? user.image : null} />
           <IconButton
             onClick={handleLogout}
