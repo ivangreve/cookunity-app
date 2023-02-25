@@ -3,10 +3,10 @@ import { redirect } from "react-router-dom";
 import { PublicRoutes } from '../models';
 import { getLocalStorage } from './localstorage.utility';
 
-const BASE_URL = "http://localhost:4000";
+// const BASE_URL = "http://localhost:4000";
 
 const axiosClient = axios.create({
-    baseURL: BASE_URL,// process.env.BASE_URL,
+    baseURL: import.meta.env.BASE_URL,
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
