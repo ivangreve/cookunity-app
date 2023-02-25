@@ -38,6 +38,15 @@ export class MealRatingService {
         }
     }
 
+    async getAverageRatingPerMeal(): Promise<{ mealId: Types.ObjectId; rating: number }[]> {
+        const ratings = await this.mealRatingModel.aggregate([
+            { $group: { _id: '$meal', rating: { $avg: '$rating' } } },
+            { $project: { _id: 0, mealId: '$_id', rating: 1 } },
+        ]);
+
+        return ratings.map((rating) => ({ mealId: rating.mealId, rating: rating.rating }));
+    }
+
     async getAverageRatingByMealId(mealId: Types.ObjectId): Promise<number> {
         const ratings = await this.mealRatingModel.find({ meal: mealId });
         if (ratings.length === 0) {

@@ -27,6 +27,13 @@ export class MealRatingController {
         return averageRating;
     }
 
+    @ApiOperation({ summary: 'Get average rating of the meals' })
+    @ApiResponse({ status: 200, description: 'Average rating of all meals', type: Number })
+    @Get('/average-rating')
+    async getAverageRatingPerMeal(): Promise<{ mealId: Types.ObjectId; rating: number }[]> {
+        return this.mealRatingService.getAverageRatingPerMeal();
+    }
+
     @ApiOperation({ summary: 'Get all meal ratings' })
     @ApiResponse({ status: 200, description: 'All meal ratings', type: [MealRating] })
     @Get()
