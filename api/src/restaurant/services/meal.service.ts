@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Type } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Meal, MealDocument } from '../schemas/meal.scheme';
 
 @Injectable()
@@ -41,6 +41,17 @@ export class MealService {
             return meal;
         } catch (error) {
             throw new Error(`Error retrieving meal: ${error.message}`);
+        }
+    }
+
+    async findByChef(chef: string): Promise<Meal[]> {
+        try {
+            return this.mealModel.find({ chef }).populate({
+                path: 'chef',
+                select: '_id name email',
+            }).exec();
+        } catch (error) {
+            throw new Error(`Error retrieving meals: ${error.message}`);
         }
     }
 

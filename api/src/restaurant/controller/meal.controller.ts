@@ -11,7 +11,10 @@ export class MealController {
     constructor(private mealService: MealService, private mealRatingService: MealRatingService) { }
 
     @ApiOperation({ summary: 'Create a meal' })
-    @ApiCreatedResponse({ description: 'The meal has been successfully created.', type: Meal })
+    @ApiCreatedResponse({
+        description: 'The meal has been successfully created.',
+        type: Meal
+    })
     @ApiBadRequestResponse({ description: 'Invalid request body or missing required fields. Please check the request and try again.' })
     @Post()
     async create(@Body() meal: Meal): Promise<Meal> {
@@ -36,13 +39,22 @@ export class MealController {
             _id: m._id,
             name: m.name,
             chef: m.chef,
-            desciption: m.description,
+            description: m.description,
             image: m.image,
             rating: ratePerMealMap.has(m._id.toString()) ? ratePerMealMap.get(m._id.toString()) : 0
 
         }))
         return mealsWithRate;
     }
+
+    @ApiOperation({ summary: 'Get meals by chef id' })
+    @ApiOkResponse({ description: 'Retrieved a meals by chef id successfully.', type: Meal })
+    @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
+    @Get('chef/:chefId')
+    async findByChef(@Param('chefId') chefId: string): Promise<Meal[]> {
+        return this.mealService.findByChef(chefId);
+    }
+
 
     @ApiOperation({ summary: 'Get meal by id' })
     @ApiOkResponse({ description: 'Retrieved a meal by id successfully.', type: Meal })
@@ -55,7 +67,7 @@ export class MealController {
             _id: meal._id,
             name: meal.name,
             chef: meal.chef,
-            desciption: meal.description,
+            description: meal.description,
             image: meal.image,
             rating: rate
         };
