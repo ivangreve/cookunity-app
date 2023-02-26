@@ -43,6 +43,7 @@ export default function SignInSide() {
       name: data.get("name") + "",
       password: data.get("password") + "",
       image: data.get("image") + "",
+      role: data.get("isChef") === "on" ? "CHEF" : "CUSTOMER",
     };
 
     toast
@@ -139,8 +140,9 @@ export default function SignInSide() {
                 autoFocus
               />
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                name="isChef"
+                control={<Checkbox />}
+                label="I'm a Chef"
               />
               <Button
                 type="submit"

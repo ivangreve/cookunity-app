@@ -51,7 +51,7 @@ export class AuthController {
             properties: {
                 name: { type: 'string', example: 'John Doe' },
                 email: { type: 'string', example: 'user@example.com' },
-                role: { type: 'string', example: 'user' },
+                role: { type: 'string', example: 'CHEF' },
                 password: { type: 'string', example: 'myPassword123' },
                 image: { type: 'string', example: 'https://url.example/image.png' },
             },
@@ -59,8 +59,11 @@ export class AuthController {
         },
     })
     @ApiResponse({ status: 200, description: 'User register successfully.' })
-    async register(@Body() userDTO: RegisterDTO) {
-        const user = await this.userService.create(userDTO);
+    async register(@Body() userDto: RegisterDTO) {
+        const validRoles = ["CUSTOMER", "CHEF"]
+        if (userDto.role && !validRoles.includes(userDto.role)) throw Error("Invalid Role!")
+
+        const user = await this.userService.create(userDto);
         const payload = {
             email: user.email,
         }
