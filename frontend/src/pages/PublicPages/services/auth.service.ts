@@ -7,7 +7,7 @@ export function signIn(email: string, password: string) {
     return axiosClient.post('/auth/login', JSON.stringify(body))
 }
 
-export function signUp(name: string, email: string, password: string): Promise<any> {
-    const body = new SignUpRequest(name, email, password);
+export function signUp(name: string, email: string, password: string, image: string = ''): Promise<any> {
+    const body = new SignUpRequest(name, email, password, image);
     return axiosClient.post('/auth/register', JSON.stringify(body));
 }
