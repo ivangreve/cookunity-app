@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiResponseProperty, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ObjectId, Types } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Meal } from '../schemas/meal.scheme';
+import { Meal, MealSchema } from '../schemas/meal.scheme';
 import { MealRating } from '../schemas/meat-rating.schema';
 import { MealRatingService } from '../services/meal-rating.service';
 import { MealService } from '../services/meal.service';
@@ -17,6 +17,24 @@ export class MealController {
     @ApiCreatedResponse({
         description: 'The meal has been successfully created.',
         type: Meal
+    })
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                name: { type: 'string' },
+                chef: { type: 'string' },
+                description: { type: 'string' },
+                image: { type: 'string' },
+            },
+            required: ['name', 'chef'],
+            example: {
+                name: 'Spaghetti Carbonara',
+                chef: 'Gordon Ramsay',
+                description: 'A classic Italian pasta dish made with eggs, Parmesan cheese, bacon, and black pepper.',
+                image: 'https://url.example.jpg',
+            },
+        }
     })
     @ApiBadRequestResponse({ description: 'Invalid request body or missing required fields. Please check the request and try again.' })
     @Post()
@@ -55,6 +73,7 @@ export class MealController {
     @ApiOperation({ summary: 'Get meals by chef id' })
     @ApiOkResponse({ description: 'Retrieved a meals by chef id successfully.', type: Meal })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
+    @ApiResponseProperty({ type: Meal, example: 'string' })
     @Get('chef/:chefId')
     async findByChef(@Param('chefId') chefId: string): Promise<Meal[]> {
         return this.mealService.findByChef(chefId);
@@ -83,6 +102,22 @@ export class MealController {
     @ApiOperation({ summary: 'Rate a meal' })
     @ApiCreatedResponse({ status: 201, description: 'For rate a meal', type: MealRating })
     @ApiBadRequestResponse({ description: 'A rating for this meal by this user already exists. Invalid rating value. Rating should be between 1 and 5.' })
+    @ApiBody({
+        schema: {
+            type: 'object',
+            properties: {
+                user: { type: 'string' },
+                meal: { type: 'string' },
+                rating: { type: 'string' },
+            },
+            required: ['user', 'meal', 'rating'],
+            example: {
+                user: '78042c80-b5e6-11ed-afa1-0242ac120002',
+                meal: '852d1da4-b5e6-11ed-afa1-0242ac120002',
+                rating: '8bc4c842-b5e6-11ed-afa1-0242ac120002'
+            },
+        }
+    })
     @Post("/rate")
     async rateMeal(@Body() mealRating: MealRating): Promise<MealRating> {
         const createdMealRating = await this.mealRatingService.create(new Types.ObjectId(mealRating.meal), new Types.ObjectId(mealRating.user), mealRating.rating);
