@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiResponseProperty, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Query, Post, Put, UseGuards } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Meal } from '../schemas/meal.scheme';
@@ -48,9 +48,10 @@ export class MealController {
     @ApiOperation({ summary: 'Get all meals' })
     @ApiOkResponse({ description: 'Retrieved all meals successfully.', type: [Meal] })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
+    @ApiQuery({ name: 'chefId', required: false, description: 'Chef ID to filter meals by.' })
     @Get()
-    async findAll(): Promise<any[]> {
-        const meals = await this.mealService.findAll();
+    async findAll(@Query('chefId') chefId?: string): Promise<any[]> {
+        const meals = await this.mealService.findAll(chefId);
         const ratePerMeal = await this.mealRatingService.getAverageRatingPerMeal();
 
         const ratePerMealMap = new Map<string, number>();
@@ -65,19 +66,40 @@ export class MealController {
             description: m.description,
             image: m.image,
             rating: ratePerMealMap.has(m._id.toString()) ? ratePerMealMap.get(m._id.toString()) : 0
-
         }))
         return mealsWithRate;
     }
 
     @UseGuards(JwtAuthGuard)
-    @ApiOperation({ summary: 'Get meals by chef id' })
-    @ApiOkResponse({ description: 'Retrieved a meals by chef id successfully.', type: Meal })
+    @ApiOperation({ summary: 'Get all meals with customer rate' })
+    @ApiOkResponse({ description: 'Retrieved all meals successfully.', type: [Meal] })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
-    @ApiResponseProperty({ type: Meal, example: 'string' })
-    @Get('chef/:chefId')
-    async findByChef(@Param('chefId') chefId: string): Promise<Meal[]> {
-        return this.mealService.findByChef(chefId);
+    @Get('my-rating/:userId')
+    async findAllWithByWithCutomerRate(@Param('userId') userId: string): Promise<any[]> {
+        const meals = await this.mealService.findAll();
+        const ratePerMeal = await this.mealRatingService.getAverageRatingPerMeal();
+        const customerRatePerMeal = await this.mealRatingService.findByUserId(userId);
+
+        const myRatePerMealMap = new Map<string, number>();
+        for (const meal of customerRatePerMeal) {
+            myRatePerMealMap.set(meal.meal.toString(), meal.rating);
+        }
+
+        const ratePerMealMap = new Map<string, number>();
+        for (const { mealId, rating } of ratePerMeal) {
+            ratePerMealMap.set(mealId.toString(), rating);
+        }
+
+        const mealsWithRate = meals.map(m => ({
+            _id: m._id,
+            name: m.name,
+            chef: m.chef,
+            description: m.description,
+            image: m.image,
+            rating: ratePerMealMap.has(m._id.toString()) ? ratePerMealMap.get(m._id.toString()) : 0,
+            your_rating: myRatePerMealMap.has(m._id.toString()) ? myRatePerMealMap.get(m._id.toString()) : 0
+        }))
+        return mealsWithRate;
     }
 
 
@@ -113,15 +135,15 @@ export class MealController {
             },
             required: ['user', 'meal', 'rating'],
             example: {
-                user: '78042c80-b5e6-11ed-afa1-0242ac120002',
-                meal: '852d1da4-b5e6-11ed-afa1-0242ac120002',
-                rating: '8bc4c842-b5e6-11ed-afa1-0242ac120002'
+                user: '63fa9196b9c83225bfa94f32',
+                meal: '63facd342813c8ced55b0862',
+                rating: 4
             },
         }
     })
     @Post("/rate")
     async rateMeal(@Body() mealRating: MealRating): Promise<MealRating> {
-        const createdMealRating = await this.mealRatingService.create(new Types.ObjectId(mealRating.meal), new Types.ObjectId(mealRating.user), mealRating.rating);
+        const createdMealRating = await this.mealRatingService.create(mealRating.meal, mealRating.user, mealRating.rating);
         return createdMealRating;
     }
 

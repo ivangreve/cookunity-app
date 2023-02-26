@@ -1,6 +1,6 @@
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 import { Meal, MealDocument } from '../schemas/meal.scheme';
 
 @Injectable()
@@ -18,9 +18,10 @@ export class MealService {
         }
     }
 
-    async findAll(): Promise<Meal[]> {
+    async findAll(chefId?: string): Promise<Meal[]> {
         try {
-            return this.mealModel.find().populate({
+            const query = chefId ? { chef: chefId } : {};
+            return this.mealModel.find(query).populate({
                 path: 'chef',
                 select: '_id name email image',
             }).exec();

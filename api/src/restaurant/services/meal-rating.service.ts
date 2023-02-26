@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Type } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { MealRating, MealRatingDocument } from '../schemas/meat-rating.schema';
@@ -61,15 +61,15 @@ export class MealRatingService {
         return this.mealRatingModel.find().exec();
     }
 
-    async findByMealId(mealId: Types.ObjectId): Promise<MealRating[]> {
+    async findByMealId(mealId: string): Promise<MealRating[]> {
         return this.mealRatingModel.find({ meal: mealId }).exec();
     }
 
-    async findByUserId(userId: Types.ObjectId): Promise<MealRating[]> {
+    async findByUserId(userId: string): Promise<MealRating[]> {
         return this.mealRatingModel.find({ user: userId }).exec();
     }
 
-    async delete(mealRatingId: Types.ObjectId): Promise<MealRating> {
+    async delete(mealRatingId: string): Promise<MealRating> {
         return this.mealRatingModel.findByIdAndDelete(mealRatingId).exec();
     }
 }

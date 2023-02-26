@@ -22,4 +22,14 @@ export class Meal {
     rating: number;
 }
 
+export class MealCustomerRateDto {
+    _id: Types.ObjectId;
+    name: string;
+    chef: Types.ObjectId;
+    description: string;
+    image: string;
+    rating: number;
+    yourRating: number
+}
+
 export const MealSchema = SchemaFactory.createForClass(Meal);
