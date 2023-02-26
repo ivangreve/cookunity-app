@@ -1,14 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiCreatedResponse, ApiResponseProperty, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ObjectId, Types } from 'mongoose';
+import { ApiBadRequestResponse, ApiCreatedResponse, ApiResponseProperty, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { Types } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { Meal, MealSchema } from '../schemas/meal.scheme';
+import { Meal } from '../schemas/meal.scheme';
 import { MealRating } from '../schemas/meat-rating.schema';
 import { MealRatingService } from '../services/meal-rating.service';
 import { MealService } from '../services/meal.service';
 
 @ApiTags('Meals')
 @Controller('meals')
+@ApiBearerAuth('access-token')
 export class MealController {
     constructor(private mealService: MealService, private mealRatingService: MealRatingService) { }
 

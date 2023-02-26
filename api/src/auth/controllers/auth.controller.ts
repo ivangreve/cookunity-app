@@ -2,7 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { LoginDTO, RegisterDTO } from '../auth.dto';
 import { UserService } from 'src/auth/services/user.service';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Get } from '@nestjs/common/decorators';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import { JwtAuthGuard } from '../jwt-auth.guard';
@@ -18,8 +18,8 @@ export class AuthController {
         schema: {
             type: 'object',
             properties: {
-                email: { type: 'string', example: 'user@example.com' },
-                password: { type: 'string', example: 'myPassword123' },
+                email: { type: 'string', example: 'ivangreve@gmail.com' },
+                password: { type: 'string', example: '1234' },
             },
             required: ['email', 'password'],
         },
@@ -70,6 +70,7 @@ export class AuthController {
     }
 
     @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth('access-token')
     @Get('authorized-endpoint-check')
     @ApiOperation({ summary: 'Mocked endpoint to check authorized request' })
     @ApiResponse({ status: 200, description: 'Is an authorized User' })

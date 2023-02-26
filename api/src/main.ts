@@ -10,11 +10,15 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Api Definition')
     .setDescription('This is a api definition for the challenge')
+    .addBearerAuth(
+      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+      'access-token'
+    )
     .setVersion('1.0')
     .addTag('api')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config, {});
   SwaggerModule.setup('api', app, document);
   app.enableCors();
   app.useGlobalFilters(new AllExceptionsFilter());
