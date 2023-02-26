@@ -88,7 +88,7 @@ export default function SignInSide() {
             }}
           >
             <img
-              src="../../../../public/logo-chef.jpg"
+              src="/static/images/logo-chef.jpg"
               style={{ width: "90px", borderRadius: "20px" }}
               alt=""
             />

@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         user: getLocalStorage("user") ? JSON.parse(getLocalStorage("user") as string) : initialState.user,
-        token: getLocalStorage("token") ? JSON.parse(getLocalStorage("token") as string) : initialState.token
+        token: getLocalStorage("token") ? getLocalStorage("token") as string : initialState.token
     },
     reducers: {
         setUser: (state, action) => {

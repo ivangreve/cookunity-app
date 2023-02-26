@@ -5,8 +5,8 @@ import { PublicRoutes } from '../models';
 import { deleteLocalStorage, getLocalStorage } from './localstorage.utility';
 
 // Add to .env file
-const BASE_URL = "https://cookunity-app-production.up.railway.app";
-//const BASE_URL = "http://localhost:4000";
+// const BASE_URL = "https://cookunity-app-production.up.railway.app";
+const BASE_URL = "http://localhost:4000";
 
 const axiosClient = axios.create({
     baseURL: BASE_URL,
