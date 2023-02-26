@@ -1,5 +1,4 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -9,17 +8,12 @@ import Link from "@mui/material/Link";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useTheme } from "@emotion/react";
 import { signIn } from "../services";
-import { LocalStorageManager } from "../../../utilities";
 import { PrivateRoutes, Roles } from "../../../models";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../../store/states/user.state";
-import { toast } from "react-hot-toast";
 
 const theme = createTheme({
   typography: {
@@ -52,8 +46,8 @@ export default function SignInSide() {
     };
 
     const response = await signIn(loginInfo.email, loginInfo.password);
-    dispatch(setUser(response.data.user));
     dispatch(setToken(response.data.token));
+    dispatch(setUser(response.data.user));
 
     const role = response.data.user.role;
     if (role === Roles.CHEF) {

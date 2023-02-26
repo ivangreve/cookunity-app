@@ -24,8 +24,8 @@ import { CommandModule } from 'nestjs-command';
         }]),
     ],
     controllers: [AuthController],
-    providers: [AuthService, JwtStrategy, UserService, UserSeed],
-    exports: [UserService, UserSeed]
+    providers: [AuthService, UserService, JwtStrategy, UserSeed],
+    exports: [AuthService, UserService, JwtStrategy, UserSeed]
 
 })
 

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { deleteLocalStorage, getLocalStorage, setLocalStorage } from '../../utilities';
+import { deleteLocalStorage, getLocalStorage, setLocalStorage, setTokenLocalStorage } from '../../utilities';
 
 const initialState = {
     user: {
@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     name: 'user',
     initialState: {
         user: getLocalStorage("user") ? JSON.parse(getLocalStorage("user") as string) : initialState.user,
-        token: getLocalStorage("user") ? JSON.parse(getLocalStorage("user") as string) : initialState.token
+        token: getLocalStorage("token") ? JSON.parse(getLocalStorage("token") as string) : initialState.token
     },
     reducers: {
         setUser: (state, action) => {
@@ -23,7 +23,7 @@ export const userSlice = createSlice({
             state.user = action.payload;
         },
         setToken: (state, action) => {
-            setLocalStorage('token', action.payload);
+            setTokenLocalStorage(action.payload);
             state.token = action.payload;
         },
         logout: (state) => {

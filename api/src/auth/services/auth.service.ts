@@ -1,7 +1,9 @@
+import { Injectable } from '@nestjs/common/decorators';
 import { sign } from 'jsonwebtoken';
 import { jwtConstants } from '../constants';
 import { UserService } from './user.service';
 
+@Injectable()
 export class AuthService {
     constructor(private userService: UserService) { }
 

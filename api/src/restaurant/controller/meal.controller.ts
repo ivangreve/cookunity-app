@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ObjectId, Types } from 'mongoose';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Meal } from '../schemas/meal.scheme';
 import { MealRating } from '../schemas/meat-rating.schema';
 import { MealRatingService } from '../services/meal-rating.service';
@@ -11,6 +12,7 @@ import { MealService } from '../services/meal.service';
 export class MealController {
     constructor(private mealService: MealService, private mealRatingService: MealRatingService) { }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Create a meal' })
     @ApiCreatedResponse({
         description: 'The meal has been successfully created.',
@@ -23,6 +25,7 @@ export class MealController {
         return createdMeal;
     }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Get all meals' })
     @ApiOkResponse({ description: 'Retrieved all meals successfully.', type: [Meal] })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
@@ -48,6 +51,7 @@ export class MealController {
         return mealsWithRate;
     }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Get meals by chef id' })
     @ApiOkResponse({ description: 'Retrieved a meals by chef id successfully.', type: Meal })
     @ApiBadRequestResponse({ description: 'Error retrieving meals. Please try again later.' })
@@ -57,6 +61,7 @@ export class MealController {
     }
 
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Get meal by id' })
     @ApiOkResponse({ description: 'Retrieved a meal by id successfully.', type: Meal })
     @ApiBadRequestResponse({ description: 'Error retrieving meal. Please try again later.' })
@@ -74,6 +79,7 @@ export class MealController {
         };
     }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Rate a meal' })
     @ApiCreatedResponse({ status: 201, description: 'For rate a meal', type: MealRating })
     @ApiBadRequestResponse({ description: 'A rating for this meal by this user already exists. Invalid rating value. Rating should be between 1 and 5.' })
@@ -83,6 +89,7 @@ export class MealController {
         return createdMealRating;
     }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Update a meal' })
     @ApiOkResponse({ description: 'The meal has been successfully updated.', type: Meal })
     @ApiBadRequestResponse({ description: 'Invalid request body or missing required fields. Please check the request and try again.' })
@@ -90,9 +97,9 @@ export class MealController {
     async update(@Param('mealId') mealId: string, @Body() meal: Meal): Promise<Meal> {
         const updatedMeal = await this.mealService.update(mealId, meal);
         return updatedMeal;
-
     }
 
+    @UseGuards(JwtAuthGuard)
     @ApiOperation({ summary: 'Delete a meal' })
     @ApiOkResponse({ description: 'The meal has been successfully deleted.' })
     @ApiBadRequestResponse({ description: 'Error deleting meal. Please try again later.' })

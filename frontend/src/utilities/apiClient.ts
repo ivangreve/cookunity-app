@@ -6,6 +6,7 @@ import { deleteLocalStorage, getLocalStorage } from './localstorage.utility';
 
 // Add to .env file
 const BASE_URL = "https://cookunity-app-production.up.railway.app";
+//const BASE_URL = "http://localhost:4000";
 
 const axiosClient = axios.create({
     baseURL: BASE_URL,
@@ -15,7 +16,7 @@ const axiosClient = axios.create({
     }
 });
 
-axios.interceptors.request.use(function (config) {
+axiosClient.interceptors.request.use(function (config) {
     const token = getLocalStorage('token');
     config.headers.Authorization = 'Bearer ' + token;
     return config;
@@ -29,11 +30,10 @@ axiosClient.interceptors.response.use(
 
         let res = error.response;
         if (res.status == 401) {
+            window.location.href = '/'
             toast.error("Credenciales invalidas!");
-
             deleteLocalStorage('user');
             deleteLocalStorage('token');
-            return redirect(PublicRoutes.SIGN_IN);
         }
         if (res.status == 500) {
             toast.error("Hubo un error:" + res);
