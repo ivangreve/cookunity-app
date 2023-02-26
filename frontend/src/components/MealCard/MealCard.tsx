@@ -19,14 +19,14 @@ interface Params {
   meal: Meal;
   readonly?: boolean;
   isCustomerCard?: boolean;
-  callbackAfterRating: Function;
+  callbackAfterRating?: Function;
 }
 
 function MealCard({
   meal,
   readonly = true,
   isCustomerCard = false,
-  callbackAfterRating,
+  callbackAfterRating = () => {},
 }: Params) {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);

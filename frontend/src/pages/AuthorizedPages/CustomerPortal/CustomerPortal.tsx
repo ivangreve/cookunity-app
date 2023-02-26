@@ -8,19 +8,24 @@ import { useSelector } from "react-redux";
 import { Button, IconButton, InputBase, Paper } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import { toast } from "react-hot-toast";
+import SkeletonCards from "../../../components/Skeletons/SkeletonCards/SkeletonCards";
+import NoneMeals from "../../../components/NoneMeals/NoneMeals";
 
 export default function ChefPortal() {
   const [meals, setMeals] = useState<Meal[]>([]);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const [filterByChef, setFilterByChef] = useState("");
   const [filterByName, setFilterByMeal] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const user = useSelector((state: any) => state.user.user);
 
   const fetchAllMeals = async () => {
+    setIsLoading(true);
     const meals = await getMyRatingMeals(user._id);
     setMeals(meals.data);
     setFilteredMeals(meals.data);
+    setIsLoading(false);
   };
 
   const performFiltering = () => {
@@ -124,18 +129,25 @@ export default function ChefPortal() {
           <ClearIcon />
         </IconButton>
       </span>
-      <Grid container spacing={4}>
-        {filteredMeals?.map((meal) => (
-          <Grid item key={meal._id} xs={12} sm={6} md={4}>
-            <MealCard
-              isCustomerCard={true}
-              readonly={false}
-              meal={meal}
-              callbackAfterRating={fetchAllMeals}
-            ></MealCard>
-          </Grid>
-        ))}
-      </Grid>
+
+      {isLoading ? (
+        <SkeletonCards />
+      ) : (
+        <Grid container spacing={4}>
+          {filteredMeals?.map((meal) => (
+            <Grid item key={meal._id} xs={12} sm={6} md={4}>
+              <MealCard
+                isCustomerCard={true}
+                readonly={false}
+                meal={meal}
+                callbackAfterRating={fetchAllMeals}
+              ></MealCard>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      {meals.length === 0 && !isLoading ? <NoneMeals></NoneMeals> : null}
     </LoggedUserLayout>
   );
 }

@@ -18,16 +18,13 @@ import { toast } from "react-hot-toast";
 import SkeletonCards from "../../../components/Skeletons/SkeletonCards/SkeletonCards";
 
 export default function ChefPortal() {
+  const user = useSelector((state: any) => state.user.user);
   const [meals, setMeals] = useState<Meal[]>([]);
   const [rateAvg, setRateAvg] = useState("0");
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
-  const [filterByChef, setFilterByChef] = useState("");
   const [filterByName, setFilterByMeal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
   const [open, setOpen] = useState(false);
-
-  const user = useSelector((state: any) => state.user.user);
 
   const handleCreateMeal = async (meal: MealDto) => {
     meal.chef = user._id;
@@ -60,23 +57,11 @@ export default function ChefPortal() {
 
   /** Filtering */
   const performFiltering = () => {
-    if (!filterByChef && !filterByName) {
-      setFilteredMeals(meals);
-      return;
-    }
-
     if (filterByName) {
       const mealsFilteresByName = meals.filter((m) =>
         m.name.toLowerCase().includes(filterByName)
       );
       setFilteredMeals(mealsFilteresByName);
-    }
-
-    if (filterByChef) {
-      const mealsFilteresByChef = meals.filter((m) =>
-        m.chef.name.toLowerCase().includes(filterByChef)
-      );
-      setFilteredMeals(mealsFilteresByChef);
     }
   };
 
@@ -85,19 +70,13 @@ export default function ChefPortal() {
     setFilterByMeal(filter);
   };
 
-  const onChefFilterChange = (event: any) => {
-    const filter = event.target.value;
-    setFilterByChef(filter);
-  };
-
   const clearFilters = () => {
-    setFilterByChef("");
     setFilterByMeal("");
   };
 
   useEffect(() => {
     performFiltering();
-  }, [filterByChef, filterByName]);
+  }, [filterByName]);
   /** */
 
   /** Modal handlers */
@@ -140,23 +119,6 @@ export default function ChefPortal() {
           >
             Create Meal
           </Button>
-          <Paper
-            component="form"
-            sx={{
-              m: "15px 15px 15px 0px",
-              p: "2px 4px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <InputBase
-              value={filterByChef}
-              onChange={onChefFilterChange}
-              sx={{ ml: 1, flex: 1 }}
-              placeholder="Search by Chef"
-              inputProps={{ "aria-label": "Filter by Chef" }}
-            />
-          </Paper>
 
           <Paper
             component="form"
