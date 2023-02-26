@@ -96,7 +96,7 @@ export default function CreateMealModal(props: CreateMealModalProps) {
       open={open}
     >
       <BootstrapDialogTitle id="create-meal-dialog-title" onClose={onClose}>
-        Create new meal
+        Create new meal 🍽️
       </BootstrapDialogTitle>
       <DialogContent dividers>
         <TextField
