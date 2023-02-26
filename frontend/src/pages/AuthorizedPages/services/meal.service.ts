@@ -1,9 +1,8 @@
 import axiosClient from "../../../utilities/apiClient";
-import { MealDto } from "../../../models";
+import { MealDto, MealRatingDto } from "../../../models";
 
 export function createMeal(name: string, chef: string, description?: string, image?: string) {
     const body = new MealDto({ name, chef, description, image });
-
     return axiosClient.post('/meals', JSON.stringify(body));
 }
 
@@ -13,4 +12,9 @@ export function getAllMeals(): Promise<any> {
 
 export function getAllMealsByChef(chefId: string): Promise<any> {
     return axiosClient.get(`/meals/chef/${chefId}`);
+}
+
+export function rateMeal(mealId: string, userId: string, rate: number): Promise<any> {
+    const body = new MealRatingDto({ meal: mealId, user: userId, rating: rate })
+    return axiosClient.post(`/meals/rate`, body);
 }

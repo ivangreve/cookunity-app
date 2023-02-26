@@ -11,6 +11,8 @@ import {
 } from "@mui/material";
 import { Rating } from "react-simple-star-rating";
 import { Meal } from "../../models/Meal.model";
+import { rateMeal } from "../../pages/AuthorizedPages/services/meal.service";
+import { useSelector } from "react-redux";
 
 interface Params {
   meal: Meal;
@@ -19,10 +21,16 @@ interface Params {
 
 function MealCard({ meal, readonly = true }: Params) {
   const [rating, setRating] = useState(0);
+  const user = useSelector((state: any) => state.user.user);
 
-  // Catch Rating value
-  const handleRating = (rate: number) => {
+  const handleRating = async (rate: number) => {
+    console.log(rate);
     setRating(rate);
+    try {
+      await rateMeal(meal._id, user._id, rate);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const handleReset = () => {
@@ -65,6 +73,7 @@ function MealCard({ meal, readonly = true }: Params) {
             size={20}
             allowFraction
             initialValue={meal.rating}
+            onClick={handleRating}
           />
           <span>
             {meal.rating}/<strong>5</strong>

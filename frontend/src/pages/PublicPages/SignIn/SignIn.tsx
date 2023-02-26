@@ -19,6 +19,7 @@ import { PrivateRoutes, Roles } from "../../../models";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../../store/states/user.state";
+import { toast } from "react-hot-toast";
 
 const theme = createTheme();
 
@@ -26,7 +27,7 @@ export default function SignInSide() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
 
-  const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const loginInfo = {
@@ -34,26 +35,19 @@ export default function SignInSide() {
       password: data.get("password") + "",
     };
 
-    signIn(loginInfo.email, loginInfo.password)
-      .then((response) => {
-        debugger;
-        dispatch(setUser(response.data.user));
-        dispatch(setToken(response.data.token));
+    const response = await signIn(loginInfo.email, loginInfo.password);
+    dispatch(setUser(response.data.user));
+    dispatch(setToken(response.data.token));
 
-        const role = response.data.user.role;
-        if (role === Roles.CHEF) {
-          navigation(PrivateRoutes.CHEF_PORTAL);
-          return;
-        }
-        if (role === Roles.CUSTOMER) {
-          navigation(PrivateRoutes.CUSTOMER_PORTAL);
-          return;
-        }
-      })
-      .catch((e) => {
-        // Show tooltip alert
-        console.error("Error");
-      });
+    const role = response.data.user.role;
+    if (role === Roles.CHEF) {
+      navigation(PrivateRoutes.CHEF_PORTAL);
+      return;
+    }
+    if (role === Roles.CUSTOMER) {
+      navigation(PrivateRoutes.CUSTOMER_PORTAL);
+      return;
+    }
   };
 
   return (

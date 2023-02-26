@@ -10,7 +10,7 @@ import { PublicRoutes } from "../../models";
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: any) => state.user.user);
 
   const handleLogout = () => {
     dispatch(logout());

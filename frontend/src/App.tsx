@@ -15,6 +15,7 @@ import CustomerPortal from "./pages/AuthorizedPages/CustomerPortal/CustomerPorta
 import RoleGuard from "./guards/role.guard";
 import { Roles } from "./models/roles";
 import { Provider } from "react-redux";
+import { Toaster } from "react-hot-toast";
 import store from "./store/store";
 
 const router = createBrowserRouter([
@@ -63,6 +64,7 @@ const router = createBrowserRouter([
 function App() {
   return (
     <Provider store={store}>
+      <Toaster position="bottom-left" reverseOrder={false} />
       <RouterProvider router={router} />
     </Provider>
   );

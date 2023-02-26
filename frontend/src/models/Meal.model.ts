@@ -24,3 +24,12 @@ export class MealDto {
     image?: string;
     rating?: number;
 }
+
+export class MealRatingDto {
+    constructor(data: Partial<MealRatingDto> = {}) {
+        Object.assign(this, data)
+    }
+    user!: string;
+    meal!: string;
+    rating!: number;
+}

@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Redirect } from 'react-router-dom';
-import { PublicRoutes } from '../../models';
 import { deleteLocalStorage, getLocalStorage, setLocalStorage } from '../../utilities';
 
 const initialState = {
@@ -11,7 +9,7 @@ const initialState = {
         role: ''
     },
     token: ''
-}
+};
 
 export const userSlice = createSlice({
     name: 'user',

@@ -7,6 +7,7 @@ import { LoggedUserLayout } from "../../../layouts";
 import { useSelector } from "react-redux";
 import { Button, IconButton, InputBase, Paper } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import { toast } from "react-hot-toast";
 
 export default function ChefPortal() {
   const [meals, setMeals] = useState<Meal[]>([]);
@@ -14,7 +15,7 @@ export default function ChefPortal() {
   const [filterByChef, setFilterByChef] = useState("");
   const [filterByName, setFilterByMeal] = useState("");
 
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state: any) => state.user.user);
 
   const fetchAllMeals = async () => {
     const meals = await getAllMeals();
