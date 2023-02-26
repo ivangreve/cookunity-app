@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
-import { LoginDTO, RegisterDTO } from '../auth.dto';
+import { LoginDto, RegisterDto } from '../models';
 import { UserService } from 'src/auth/services/user.service';
 import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Get } from '@nestjs/common/decorators';
@@ -27,7 +27,7 @@ export class AuthController {
     @ApiResponse({ status: 200, description: 'Login successfully.' },)
     @ApiResponse({ status: 401, description: 'Unauthorized user.' })
 
-    async login(@Body() userDTO: LoginDTO) {
+    async login(@Body() userDTO: LoginDto) {
         const user = await this.userService.findByLogin(userDTO);
         const payload = {
             role: user.role,
@@ -59,7 +59,7 @@ export class AuthController {
         },
     })
     @ApiResponse({ status: 200, description: 'User register successfully.' })
-    async register(@Body() userDto: RegisterDTO) {
+    async register(@Body() userDto: RegisterDto) {
         const validRoles = ["CUSTOMER", "CHEF"]
         if (userDto.role && !validRoles.includes(userDto.role)) throw Error("Invalid Role!")
 

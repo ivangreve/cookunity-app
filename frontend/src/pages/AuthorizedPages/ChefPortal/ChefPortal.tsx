@@ -50,8 +50,14 @@ export default function ChefPortal() {
   };
 
   const calculateAvg = (meals: Meal[]) => {
-    const totalRatings = meals.reduce((total, meal) => total + meal.rating, 0);
-    const averageRating = meals.length ? totalRatings / meals.length : 0;
+    const ratedMeals = meals.filter((m) => m.rating !== 0);
+    const totalRatings = ratedMeals.reduce(
+      (total, meal) => total + meal.rating,
+      0
+    );
+    const averageRating = ratedMeals.length
+      ? totalRatings / ratedMeals.length
+      : 0;
     setRateAvg(averageRating.toFixed(1));
   };
 
@@ -95,10 +101,10 @@ export default function ChefPortal() {
 
   return (
     <LoggedUserLayout>
-      <h1>Welcome {user && user.name}!</h1>
+      <h1>Welcome {user && user.name}! 😄</h1>
 
       <>
-        <h2>Rate average: {rateAvg}</h2>
+        <h2>✨🎉 Your rating average: {rateAvg}</h2>
 
         <span
           style={{

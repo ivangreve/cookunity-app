@@ -5,6 +5,12 @@ export type MealRatingDocument = MealRating & Document;
 
 @Schema()
 export class MealRating {
+    constructor(user: Types.ObjectId, meal: Types.ObjectId, rating: number) {
+        this.user = user;
+        this.meal = meal;
+        this.rating = rating;
+    }
+
     @Prop({ type: Types.ObjectId, ref: 'User', required: true })
     user: Types.ObjectId;
 

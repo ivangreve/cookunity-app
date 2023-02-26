@@ -1,13 +1,42 @@
 # cookunity-app
 
 A full stack app with NestJs + ReactJs for CookUnity Challenge
+The aplication was deployed in the following sites:
+api: https://cookunity-app-production.up.railway.app/api (swagger doc)
+front: https://cookunity-app.vercel.app/
 
-# Docker
+You can Register as a new User (CHEF or CUSTOMER) or use an already created user
 
-## All App
+{
+// CHEF User
+email: donato@cookunity.com
+password: chef
+}
+
+{
+// Customer User
+email: ivangreve@gmail.com
+password: user
+}
+
+# Docker 🐋
+
+### Run all services:
 
 cd cookunity-app
 docker-compose up
+
+This command run 3 services
+Engine: engine_service
+DB: mongodb_service
+Frontend: frontend_service
+
+### Run only one services:
+
+You can up services separately too
+docker-compose up 'SERVICE_NAME'
+
+i.e.: docker-compose up 'mongodb_service'
 
 ## MongoDb
 

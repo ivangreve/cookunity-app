@@ -34,6 +34,20 @@ services:
     volumes:
       # Where our data will be persisted
       - mongodb_data_container:/data/db
+
+  frontend_service:
+    container_name: frontend
+    build:
+      context: './frontend'
+      dockerfile: ./Dockerfile
+    ports:
+      - '5173:5173'
+    networks:
+      - backend_network
+    restart: always
+    env_file:
+      - ./frontend/.env
+
 networks:
   backend_network:
     driver: bridge

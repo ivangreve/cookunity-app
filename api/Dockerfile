@@ -18,7 +18,6 @@ COPY . .
 
 # Creates a "dist" folder with the production build
 RUN yarn run build
-# RUN yarn start:prod
 
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]

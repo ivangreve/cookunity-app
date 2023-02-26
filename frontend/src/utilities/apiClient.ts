@@ -3,10 +3,10 @@ import { toast } from 'react-hot-toast';
 import { redirect } from "react-router-dom";
 import { PublicRoutes } from '../models';
 import { deleteLocalStorage, getLocalStorage } from './localstorage.utility';
+import { Enviroment } from '../../enviroment';
 
 // Add to .env file
-// const BASE_URL = "https://cookunity-app-production.up.railway.app";
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = Enviroment.baseUrl || "http://localhost:4000";
 
 const axiosClient = axios.create({
     baseURL: BASE_URL,

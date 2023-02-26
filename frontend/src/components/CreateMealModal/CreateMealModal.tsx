@@ -60,25 +60,23 @@ export default function CreateMealModal(props: CreateMealModalProps) {
   const { open, onClose, onSubmit } = props;
   const [meal, setMeal] = React.useState<MealDto>(new MealDto());
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMeal((prevState) => ({
-      ...prevState,
+  const handleNameChange = (event: any) => {
+    setMeal((state: any) => ({
+      ...state,
       name: event.target.value,
     }));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMeal((prevState) => ({
-      ...prevState,
+  const handleImageChange = (event: any) => {
+    setMeal((state: any) => ({
+      ...state,
       image: event.target.value,
     }));
   };
 
-  const handleDescriptionChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setMeal((prevState) => ({
-      ...prevState,
+  const handleDescriptionChange = (event: any) => {
+    setMeal((state: any) => ({
+      ...state,
       description: event.target.value,
     }));
   };
