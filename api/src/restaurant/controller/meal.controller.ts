@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { ObjectId } from 'mongoose';
+import { ObjectId, Types } from 'mongoose';
 import { Meal } from '../schemas/meal.scheme';
+import { MealRating } from '../schemas/meat-rating.schema';
 import { MealRatingService } from '../services/meal-rating.service';
 import { MealService } from '../services/meal.service';
 
@@ -71,6 +72,15 @@ export class MealController {
             image: meal.image,
             rating: rate
         };
+    }
+
+    @ApiOperation({ summary: 'Rate a meal' })
+    @ApiCreatedResponse({ status: 201, description: 'For rate a meal', type: MealRating })
+    @ApiBadRequestResponse({ description: 'A rating for this meal by this user already exists. Invalid rating value. Rating should be between 1 and 5.' })
+    @Post("/rate")
+    async rateMeal(@Body() mealRating: MealRating): Promise<MealRating> {
+        const createdMealRating = await this.mealRatingService.create(new Types.ObjectId(mealRating.meal), new Types.ObjectId(mealRating.user), mealRating.rating);
+        return createdMealRating;
     }
 
     @ApiOperation({ summary: 'Update a meal' })

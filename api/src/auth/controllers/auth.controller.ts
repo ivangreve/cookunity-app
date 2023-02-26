@@ -7,7 +7,7 @@ import { Get } from '@nestjs/common/decorators';
 import { UseGuards } from '@nestjs/common/decorators/core/use-guards.decorator';
 import { JwtAuthGuard } from '../jwt-auth.guard';
 
-@ApiTags('Authorization Controller')
+@ApiTags('Login Controller')
 @Controller('auth')
 export class AuthController {
     constructor(private authService: AuthService, private userService: UserService) { }
