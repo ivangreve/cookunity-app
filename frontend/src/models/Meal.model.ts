@@ -12,6 +12,7 @@ export interface Meal {
     description: string;
     image: string;
     rating: number;
+    your_rating: number;
 }
 
 export class MealDto {
@@ -23,6 +24,7 @@ export class MealDto {
     description?: string;
     image?: string;
     rating?: number;
+    your_rating?: number;
 }
 
 export class MealRatingDto {

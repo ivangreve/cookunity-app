@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import { getAllMeals } from "../services/meal.service";
+import { getMyRatingMeals } from "../services/meal.service";
 import { Meal } from "../../../models";
 import MealCard from "../../../components/MealCard/MealCard";
 import { LoggedUserLayout } from "../../../layouts";
@@ -18,7 +18,7 @@ export default function ChefPortal() {
   const user = useSelector((state: any) => state.user.user);
 
   const fetchAllMeals = async () => {
-    const meals = await getAllMeals();
+    const meals = await getMyRatingMeals(user._id);
     setMeals(meals.data);
     setFilteredMeals(meals.data);
   };
@@ -127,7 +127,12 @@ export default function ChefPortal() {
       <Grid container spacing={4}>
         {filteredMeals?.map((meal) => (
           <Grid item key={meal._id} xs={12} sm={6} md={4}>
-            <MealCard readonly={false} meal={meal}></MealCard>
+            <MealCard
+              isCustomerCard={true}
+              readonly={false}
+              meal={meal}
+              callbackAfterRating={fetchAllMeals}
+            ></MealCard>
           </Grid>
         ))}
       </Grid>

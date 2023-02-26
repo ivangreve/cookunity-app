@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import { createMeal, getAllMeals } from "../services/meal.service";
+import {
+  createMeal,
+  getAllMeals,
+  getAllMealsByChef,
+} from "../services/meal.service";
 import { Meal, MealDto } from "../../../models";
 import MealCard from "../../../components/MealCard/MealCard";
 import { LoggedUserLayout } from "../../../layouts";
@@ -40,7 +44,8 @@ export default function ChefPortal() {
 
   const fetchAllMeals = async () => {
     setIsLoading(true);
-    const meals = await getAllMeals();
+    debugger;
+    const meals = await getAllMealsByChef(user._id);
     setMeals(meals.data);
     calculateAvg(meals.data);
     setFilteredMeals(meals.data);
