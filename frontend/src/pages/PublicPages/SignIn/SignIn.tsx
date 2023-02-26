@@ -21,7 +21,23 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../../store/states/user.state";
 import { toast } from "react-hot-toast";
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Poppins, sans-serif';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 500;
+        }
+      `,
+    },
+  },
+});
 
 export default function SignInSide() {
   const navigation = useNavigate();
@@ -77,19 +93,14 @@ export default function SignInSide() {
               alignItems: "center",
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "dark.secondary.main" }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <img
+              src="../../../../public/logo-chef.png"
+              style={{ width: "90px", borderRadius: "20px" }}
+              alt=""
+            />
 
-            <Typography component="h1" variant="h5">
-              Sign In
-            </Typography>
-            <Box
-              component="form"
-              noValidate
-              onSubmit={handleLogin}
-              sx={{ mt: 1 }}
-            >
+            <h2>Login</h2>
+            <Box component="form" onSubmit={handleLogin} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required

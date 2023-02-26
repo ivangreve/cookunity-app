@@ -44,12 +44,12 @@ export default function ChefPortal() {
     }
   };
 
-  const onMealFilterChange = (event) => {
+  const onMealFilterChange = (event: any) => {
     const filter = event.target.value;
     setFilterByMeal(filter);
   };
 
-  const onChefFilterChange = (event) => {
+  const onChefFilterChange = (event: any) => {
     const filter = event.target.value;
     setFilterByChef(filter);
   };
