@@ -1,66 +1,66 @@
-# cookunity-app
+# 🍝 Cookunity 🥘
 
-A full stack app with NestJs + ReactJs for CookUnity Challenge
-The aplication was deployed in the following sites:
-api: https://cookunity-app-production.up.railway.app/api (swagger doc)
-front: https://cookunity-app.vercel.app/
+###### 🎉This proyect is a full app with NestJs + ReactJs for CookUnity challenge! 🎉
 
-You can Register as a new User (CHEF or CUSTOMER) or use an already created user
+- The aplication was deployed in the following sites:
+  **backend**: `https://cookunity-app-production.up.railway.app/api` (swagger doc)
+  **front**: `https://cookunity-app.vercel.app/`
 
-{
-// CHEF User
-email: donato@cookunity.com
-password: chef
-}
+###### You can Register as a new User (CHEF or CUSTOMER) or use an already created userYou can Register as a new User (CHEF or CUSTOMER) or use an already created user
 
-{
-// Customer User
-email: ivangreve@gmail.com
-password: user
-}
+## Seed User ✨
 
-# Docker 🐋
+- Go to api folder: `cd api`
+- Run the following script: `yarn nestjs-command create:user`
 
-### Run all services:
+```json
+[
+  {
+    "name": "Donato de Santis",
+    "email": "donato@cookunity.com",
+    "role": "CHEF",
+    "password": "chef",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpYeiftn_mBq8eomPq1_TB4Eb0MiPKkpEHIhW9obEvrVZO0vlU"
+  },
+  {
+    "name": "Christophe Krywonis",
+    "email": "christophe@cookunity.com",
+    "role": "CHEF",
+    "password": "chef",
+    "image": "https://aptus.com.ar/wp-content/uploads/2018/10/christophe-masterchef3.jpg"
+  },
+  {
+    "name": "Ivan Greve",
+    "email": "ivangreve@gmail.com",
+    "role": "CUSTOMER",
+    "password": "1234",
+    "image": "https://ivangreve.com/profile.jpg"
+  }
+]
+```
 
-cd cookunity-app
-docker-compose up
+## # Docker knowledge 🐋 🧠
 
-This command run 3 services
-Engine: engine_service
-DB: mongodb_service
-Frontend: frontend_service
+Run all services:
+`docker-compose up`
 
-### Run only one services:
+If do you want run only one service run:
+`docker-compose up <serviceName>`
 
-You can up services separately too
-docker-compose up 'SERVICE_NAME'
+Example:
 
-i.e.: docker-compose up 'mongodb_service'
+- **DataBase service:** `docker-compose up mongodb_service`
+- **Engine service:** `docker-compose up engine_service`
+- **Frontend service:** `docker-compose up frontend_service`
 
-## MongoDb
+## Used Technologies/Tools 🪛
 
-cd cookunity-app
-docker-compose up mongo_db_service
-
-## NestJs
-
-cd cookunity-app
-docker-compose up engine_service
-
-Login
-/auth/login
-
-## Seed Data
-
-yarn nestjs-command create:user
-
-{
-"email": "chef@cookunity.com",
-"password": "chef"
-}
-or
-{
-"email": "customer@cookunity.com",
-"password": "customer"
-}
+- [.NestJs](https://nestjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [React](https://react.com/)
+- [ViteJs](https://vitejs.dev/)
+- [Mui](https://mui.com/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Docker](https://docker.com/)
+- [SwaggerUI](https://swagger.io/)
+- [Json Web Token](https://jwt.io/)
