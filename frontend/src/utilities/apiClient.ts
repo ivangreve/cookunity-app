@@ -16,8 +16,6 @@ const axiosClient = axios.create({
 });
 
 axios.interceptors.request.use(function (config) {
-    // const localStorageManager = new LocalStorageManager();
-    // const token = localStorageManager.getToken();
     const token = getLocalStorage('token');
     config.headers.Authorization = 'Bearer ' + token;
     return config;

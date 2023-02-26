@@ -11,6 +11,7 @@ import NoneMeals from "../../../components/NoneMeals/NoneMeals";
 import CreateMealModal from "../../../components/CreateMealModal/CreateMealModal";
 import AddIcon from "@mui/icons-material/Add";
 import { toast } from "react-hot-toast";
+import SkeletonCards from "../../../components/Skeletons/SkeletonCards/SkeletonCards";
 
 export default function ChefPortal() {
   const [meals, setMeals] = useState<Meal[]>([]);
@@ -18,6 +19,8 @@ export default function ChefPortal() {
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const [filterByChef, setFilterByChef] = useState("");
   const [filterByName, setFilterByMeal] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   const [open, setOpen] = useState(false);
 
   const user = useSelector((state: any) => state.user.user);
@@ -36,10 +39,12 @@ export default function ChefPortal() {
   };
 
   const fetchAllMeals = async () => {
+    setIsLoading(true);
     const meals = await getAllMeals();
     setMeals(meals.data);
     calculateAvg(meals.data);
     setFilteredMeals(meals.data);
+    setIsLoading(false);
   };
 
   const calculateAvg = (meals: Meal[]) => {
@@ -108,83 +113,87 @@ export default function ChefPortal() {
     <LoggedUserLayout>
       <h1>Welcome {user && user.name}!</h1>
 
-      {meals.length > 0 ? (
-        <>
-          <h2>Rate average: {rateAvg}</h2>
+      <>
+        <h2>Rate average: {rateAvg}</h2>
 
-          <span
-            style={{
+        <span
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "left",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
+          <Button
+            size="small"
+            variant="contained"
+            color="primary"
+            style={{ marginRight: "20px" }}
+            startIcon={<AddIcon />}
+            onClick={handleClickOpen}
+          >
+            Create Meal
+          </Button>
+          <Paper
+            component="form"
+            sx={{
+              m: "15px 15px 15px 0px",
+              p: "2px 4px",
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "left",
               alignItems: "center",
             }}
           >
-            <Button
-              size="small"
-              variant="contained"
-              color="primary"
-              style={{ marginRight: "20px" }}
-              startIcon={<AddIcon />}
-              onClick={handleClickOpen}
-            >
-              Create Meal
-            </Button>
-            <Paper
-              component="form"
-              sx={{
-                m: "15px 15px 15px 0px",
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <InputBase
-                value={filterByChef}
-                onChange={onChefFilterChange}
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search by Chef"
-                inputProps={{ "aria-label": "Filter by Chef" }}
-              />
-            </Paper>
+            <InputBase
+              value={filterByChef}
+              onChange={onChefFilterChange}
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search by Chef"
+              inputProps={{ "aria-label": "Filter by Chef" }}
+            />
+          </Paper>
 
-            <Paper
-              component="form"
-              sx={{
-                m: "15px 0px 15px 0px",
-                p: "2px 4px",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              <InputBase
-                onChange={onMealFilterChange}
-                value={filterByName}
-                sx={{ ml: 1, flex: 1 }}
-                placeholder="Search by Meal"
-                inputProps={{ "aria-label": "Filter by Chef" }}
-              />
-            </Paper>
-            <IconButton
-              onClick={clearFilters}
-              sx={{ height: "40px", marginLeft: "5px" }}
-              aria-label="delete"
-            >
-              <ClearIcon />
-            </IconButton>
-          </span>
-        </>
+          <Paper
+            component="form"
+            sx={{
+              m: "15px 0px 15px 0px",
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <InputBase
+              onChange={onMealFilterChange}
+              value={filterByName}
+              sx={{ ml: 1, flex: 1 }}
+              placeholder="Search by Meal"
+              inputProps={{ "aria-label": "Filter by Chef" }}
+            />
+          </Paper>
+          <IconButton
+            onClick={clearFilters}
+            sx={{ height: "40px", marginLeft: "5px" }}
+            aria-label="delete"
+          >
+            <ClearIcon />
+          </IconButton>
+        </span>
+      </>
+
+      {isLoading ? (
+        <SkeletonCards />
       ) : (
-        <NoneMeals></NoneMeals>
+        <Grid container spacing={4}>
+          {filteredMeals.map((meal) => (
+            <Grid item key={meal._id} xs={12} sm={6} md={4}>
+              <MealCard meal={meal}></MealCard>
+            </Grid>
+          ))}
+        </Grid>
       )}
 
-      <Grid container spacing={4}>
-        {filteredMeals.map((meal) => (
-          <Grid item key={meal._id} xs={12} sm={6} md={4}>
-            <MealCard meal={meal}></MealCard>
-          </Grid>
-        ))}
-      </Grid>
+      {meals.length === 0 && !isLoading ? <NoneMeals></NoneMeals> : null}
+
       <CreateMealModal
         open={open}
         onClose={handleClose}
