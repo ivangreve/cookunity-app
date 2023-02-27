@@ -1,10 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { PublicRoutes } from "../models";
-import { LocalStorageManager } from "../utilities";
+import { getLocalStorage } from "../utilities";
 
 export const AuthGuard = () => {
-  const localStoreManager = new LocalStorageManager();
-  const token = localStoreManager.getToken();
+  const token = getLocalStorage("token");
 
   // Check token
   if (token) {

@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
-import {
-  createMeal,
-  getAllMeals,
-  getAllMealsByChef,
-} from "../services/meal.service";
+import { createMeal, getAllMealsByChef } from "../services/meal.service";
 import { Meal, MealDto } from "../../../models";
 import MealCard from "../../../components/MealCard/MealCard";
 import { LoggedUserLayout } from "../../../layouts";

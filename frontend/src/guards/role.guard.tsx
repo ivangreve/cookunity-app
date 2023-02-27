@@ -1,15 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { PublicRoutes } from "../models";
 import { Roles } from "../models/roles";
-import { LocalStorageManager } from "../utilities";
+import { getRole } from "../utilities";
 
 interface Props {
   role: string;
 }
 
 export const RoleGuard = ({ role }: Props) => {
-  const localStoreManager = new LocalStorageManager();
-  const userRole = localStoreManager.getRole();
+  const userRole = getRole();
+
   if (userRole === role) {
     return <Outlet />;
   } else {
