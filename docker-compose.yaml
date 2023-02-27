@@ -45,8 +45,6 @@ services:
     networks:
       - backend_network
     restart: always
-    env_file:
-      - ./frontend/.env
 
 networks:
   backend_network:
