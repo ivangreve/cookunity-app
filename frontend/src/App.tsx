@@ -17,6 +17,8 @@ import { Roles } from "./models/roles";
 import { Provider } from "react-redux";
 import { Toaster } from "react-hot-toast";
 import store from "./store/store";
+import { ThemeProvider } from "@emotion/react";
+import { createTheme } from "@mui/material/styles";
 
 const router = createBrowserRouter([
   {
@@ -61,11 +63,31 @@ const router = createBrowserRouter([
   },
 ]);
 
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Poppins, sans-serif';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 500;
+        }
+      `,
+    },
+  },
+});
+
 function App() {
   return (
     <Provider store={store}>
       <Toaster position="bottom-left" reverseOrder={false} />
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ThemeProvider>
     </Provider>
   );
 }
