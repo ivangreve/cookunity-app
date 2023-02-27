@@ -95,7 +95,7 @@ export default function SignInSide() {
           >
             <img
               src="/static/images/logo-chef.jpg"
-              style={{ width: "90px", borderRadius: "20px" }}
+              className="sign_in_cookunity_logo"
               alt=""
             />
 

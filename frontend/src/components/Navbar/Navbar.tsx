@@ -26,11 +26,10 @@ const Navbar = () => {
           <Avatar alt="Remy Sharp" src={user?.image ? user.image : null} />
           <IconButton
             onClick={handleLogout}
-            style={{ color: "white", marginLeft: "10px" }}
             aria-label="Logout"
             component="label"
           >
-            <LogoutIcon />
+            <LogoutIcon className="navbar_icon_button" />
           </IconButton>
         </span>
       </Toolbar>

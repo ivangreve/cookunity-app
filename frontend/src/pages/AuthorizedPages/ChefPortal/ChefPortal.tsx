@@ -104,25 +104,19 @@ export default function ChefPortal() {
 
       <>
         {rateAvg === 0 ? (
-          <h3>😢 There is no rated meals yet!</h3>
+          <h3 className="chef_portal_title">😢 There is no rated meals yet!</h3>
         ) : (
-          <h3>✨🍝 Your rating average: {rateAvg.toFixed(1)}</h3>
+          <h3 className="chef_rating_text">
+            ✨🍝 Your rating average: {rateAvg.toFixed(1)}
+          </h3>
         )}
 
-        <span
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "left",
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
+        <span className="chef_portal_action_panel">
           <Button
             size="small"
             variant="contained"
             color="primary"
-            style={{ marginRight: "20px" }}
+            className="create_meal_btn"
             startIcon={<AddIcon />}
             onClick={handleClickOpen}
           >

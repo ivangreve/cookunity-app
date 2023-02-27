@@ -74,20 +74,9 @@ export default function ChefPortal() {
 
   return (
     <LoggedUserLayout>
-      <h1 style={{ paddingBottom: "25px" }}>
-        🎉Welcome {user && user.name}!🎉
-      </h1>
-      <h3 style={{ paddingBottom: "25px" }}>
-        😀 You can rate the following meals!
-      </h3>
-      <span
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "left",
-          alignItems: "center",
-        }}
-      >
+      <h1 className="chef_portal_title">🎉Welcome {user && user.name}!🎉</h1>
+      <h3 className="chef_rating_text">😀 You can rate the following meals!</h3>
+      <span className="chef_portal_action_panel">
         <Paper
           component="form"
           sx={{

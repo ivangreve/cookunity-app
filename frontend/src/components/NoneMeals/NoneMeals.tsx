@@ -2,14 +2,7 @@ import React from "react";
 
 function NoneMeals() {
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <div className="none_meals_container">
       <h2>Meals not found! 😢</h2>
     </div>
   );
