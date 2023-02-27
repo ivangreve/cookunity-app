@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config/dist';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UserSchema } from '../../src/auth/schema/user.schema';
-import { AuthService } from '../../src/auth/services/auth.service';
-import { UserService } from '../../src/auth/services/user.service';
+import { UserSchema } from 'src/auth/schema/user.schema';
+import { AuthService } from 'src/auth/services/auth.service';
+import { UserService } from 'src/auth/services/user.service';
 import { MealController } from './controller/meal.controller';
 import { Meal, MealSchema } from './schemas/meal.scheme';
 import { MealRating, MealRatingSchema } from './schemas/meat-rating.schema';
