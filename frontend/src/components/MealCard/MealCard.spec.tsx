@@ -1,10 +1,11 @@
 import React from "react";
 import { describe, expect, it } from "vitest";
-import { render, screen, waitFor, fireEvent } from "../../../test-utils.ts";
+import { render, screen, waitFor, fireEvent } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 import MealCard from "./MealCard";
 import { Provider } from "react-redux";
 import store from "../../store/store";
+import { Meal } from "../../models";
 
 const mockMeal = {
   _id: "1",
@@ -22,7 +23,7 @@ describe("MealCard component", () => {
   test("renders the meal name and description", () => {
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} />{" "}
+        <MealCard meal={mockMeal as Meal} />{" "}
       </Provider>
     );
 
@@ -33,7 +34,7 @@ describe("MealCard component", () => {
   test("Renders the meal image", () => {
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} />{" "}
+        <MealCard meal={mockMeal as Meal} />{" "}
       </Provider>
     );
 
@@ -46,7 +47,7 @@ describe("MealCard component", () => {
   test("renders the chef image", () => {
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} />{" "}
+        <MealCard meal={mockMeal as Meal} />{" "}
       </Provider>
     );
 
@@ -58,7 +59,11 @@ describe("MealCard component", () => {
   test("renders the global rating for chefs", () => {
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} readonly={true} isCustomerCard={false} />
+        <MealCard
+          meal={mockMeal as Meal}
+          readonly={true}
+          isCustomerCard={false}
+        />
       </Provider>
     );
 
@@ -69,7 +74,11 @@ describe("MealCard component", () => {
     mockMeal.your_rating = 0;
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} readonly={false} isCustomerCard={true} />
+        <MealCard
+          meal={mockMeal as Meal}
+          readonly={false}
+          isCustomerCard={true}
+        />
       </Provider>
     );
 
@@ -80,7 +89,7 @@ describe("MealCard component", () => {
     mockMeal.your_rating = 3;
     render(
       <Provider store={store}>
-        <MealCard meal={mockMeal} isCustomerCard={true} />
+        <MealCard meal={mockMeal as Meal} isCustomerCard={true} />
       </Provider>
     );
     expect(screen.getByText(`Your rate:`)).toBeInTheDocument();
