@@ -1,17 +1,32 @@
 # 🍝 Cookunity 🥘
 
-###### 🎉This proyect is a full app with NestJs + ReactJs for CookUnity challenge! 🎉
+## Table of Contents
+- **Introduction** 📖
+- **Demo app** 🍽️🎉
+- **Getting Started** ✨
+- **Docker** 🐋
+- **Technologies/Tools** 🪛
 
-- The aplication was deployed in the following sites:
-  **backend**: `https://cookunity-app-production.up.railway.app/api` (swagger doc)
-  **front**: `https://cookunity-app.vercel.app/`
 
-###### You can Register as a new User (CHEF or CUSTOMER) or use an already created userYou can Register as a new User (CHEF or CUSTOMER) or use an already created user
+## Introduction 📖
+#### 🎉This project is a full-stack web application built with **NestJS** and **ReactJS** for the CookUnity challenge! 🎉
 
-## Seed User ✨
 
-- Go to api folder: `cd api`
-- Run the following script: `yarn nestjs-command create:user`
+## Demo app 🍽️🎉
+- The application has been deployed in the following sites:
+
+**Backend:** [https://cookunity-app-production.up.railway.app/api](https://cookunity-app-production.up.railway.app/api "https://cookunity-app-production.up.railway.app/api") (Swagger doc).
+
+**Frontend:** [https://cookunity-app.vercel.app/](https://cookunity-app.vercel.app/ "https://cookunity-app.vercel.app/").
+
+## Getting Started ✨
+
+To use the application, you can register as a new user or use the seed user provided below. To create the seeds users, navigate to the **api** folder and run the following command:
+
+```bash
+cd api
+yarn nestjs-command create:user
+```
 
 ```json
 [
@@ -39,21 +54,27 @@
 ]
 ```
 
-## # Docker knowledge 🐋 🧠
+## Docker 🐋🧠
+To run the application using Docker, follow these steps:
+1. **Go** to the root folder of the project.
+2. **Run** the following command to start all the services:
 
-Run all services:
-`docker-compose up`
+```bash
+docker-compose up
+```
 
-If do you want run only one service run:
-`docker-compose up <serviceName>`
+- If you want to run only one service, run the following command, replacing `<serviceName>` with the name of the service you want to start:
 
-Example:
+```bash
+docker-compose up <serviceName>
+```
 
+*Example:*
 - **DataBase service:** `docker-compose up mongodb_service`
 - **Engine service:** `docker-compose up engine_service`
 - **Frontend service:** `docker-compose up frontend_service`
 
-## Used Technologies/Tools 🪛
+## Technologies/Tools 🪛
 
 - [.NestJs](https://nestjs.com/)
 - [MongoDB](https://www.mongodb.com/)
