@@ -1,7 +1,5 @@
-import { height } from "@mui/system";
 import React from "react";
 import Logo from "../../../components/Logo/Logo";
-import AuthLayout from "../../../layouts/AuthLayout";
 
 function NotFound() {
   return (

@@ -61,10 +61,6 @@ export class MealRatingService {
         return this.mealRatingModel.find().exec();
     }
 
-    async findByMealId(mealId: string): Promise<MealRating[]> {
-        return this.mealRatingModel.find({ meal: mealId }).exec();
-    }
-
     async findByUserId(userId: string): Promise<MealRating[]> {
         return this.mealRatingModel.find({ user: userId }).exec();
     }

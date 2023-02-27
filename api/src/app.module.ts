@@ -12,10 +12,6 @@ import { ConfigModule } from '@nestjs/config';
     /* Necesary for use env variables */
     ConfigModule.forRoot(),
     RestaurantModule,
-
-    // With docker engine
-    // MongooseModule.forRoot('mongodb://root:rootpassword@mongodb_service:27017/initial_bd?authSource=admin'),
-
     MongooseModule.forRoot(process.env.MONGO_CONNECTION),
     AuthModule
   ],
