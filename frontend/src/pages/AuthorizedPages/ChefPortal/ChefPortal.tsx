@@ -62,12 +62,10 @@ export default function ChefPortal() {
 
   /** Filtering */
   const performFiltering = () => {
-    if (filterByName) {
-      const mealsFilteresByName = meals.filter((m) =>
-        m.name.toLowerCase().includes(filterByName)
-      );
-      setFilteredMeals(mealsFilteresByName);
-    }
+    const mealsFilteresByName = meals.filter((m) =>
+      m.name.toLowerCase().includes(filterByName)
+    );
+    setFilteredMeals(mealsFilteresByName);
   };
 
   const onMealFilterChange = (event: any) => {
