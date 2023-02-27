@@ -19,7 +19,7 @@ export class Meal {
     @Prop({ required: true })
     image: string;
 
-    rating: number;
+    rating?: number;
 }
 
 export class MealCustomerRateDto {

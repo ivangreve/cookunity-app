@@ -30,6 +30,15 @@ export const UserSchema = new mongoose.Schema({
     },
 });
 
+export class UserModel {
+    name: string;
+    email: string;
+    role: string;
+    image: string;
+    readonly password: string;
+    createdAt: Date;
+}
+
 // Pre-save hook to hash the password
 UserSchema.pre('save', async function (next: any) {
     try {

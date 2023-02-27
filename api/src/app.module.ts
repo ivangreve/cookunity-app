@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthController } from 'src/auth/controllers/auth.controller';
-import { AuthService } from 'src/auth/services/auth.service';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthController } from '../src/auth/controllers/auth.controller';
+import { AuthService } from '../src/auth/services/auth.service';
+import { AuthModule } from '../src/auth/auth.module';
 import { RestaurantModule } from './restaurant/restaurant.module';
 import { ConfigModule } from '@nestjs/config';
 

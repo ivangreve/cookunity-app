@@ -1,7 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Query, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiCreatedResponse, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
-import { Types } from 'mongoose';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { Meal } from '../schemas/meal.scheme';
 import { MealRating } from '../schemas/meat-rating.schema';
 import { MealRatingService } from '../services/meal-rating.service';
