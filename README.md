@@ -4,6 +4,7 @@
 - **Introduction** 📖
 - **Demo app** 🍽️🎉
 - **Getting Started** ✨
+- **Tests** 🧪⚗️
 - **Docker** 🐋
 - **Technologies/Tools** 🪛
 
@@ -54,6 +55,13 @@ yarn nestjs-command create:user
 ]
 ```
 
+## Tests 🧪⚗️
+To run test for the aplications:
+
+**Backend:** `yarn test`
+
+**Frontend:** `yarn test`
+
 ## Docker 🐋🧠
 To run the application using Docker, follow these steps:
 1. **Go** to the root folder of the project.
@@ -82,6 +90,7 @@ docker-compose up <serviceName>
 - [ViteJs](https://vitejs.dev/)
 - [Mui](https://mui.com/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Testing Library](https://testing-library.com/)
 - [Docker](https://docker.com/)
 - [SwaggerUI](https://swagger.io/)
 - [Json Web Token](https://jwt.io/)
