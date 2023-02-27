@@ -58,6 +58,11 @@ svg.star-svg {
 
 .meal_card_image_container {
     position: relative;
+
+    img {
+        max-height: 210px;
+
+    }
 }
 
 .meal_card_remove_icon {
@@ -65,7 +70,7 @@ svg.star-svg {
     position: absolute !important;
     right: 0px !important;
     top: 0px !important;
-    color: rgb(202, 96, 96) !important;
+    color: white !important;
 
     svg {
         font-size: 35px !important;
