@@ -13,6 +13,10 @@ export function getAllMeals(): Promise<any> {
     return axiosClient.get(url);
 }
 
+export function deleteMeal(mealId: string): Promise<any> {
+    return axiosClient.delete(`${url}/${mealId}`);
+}
+
 export function getAllMealsByChef(chefId: string): Promise<any> {
     return axiosClient.get(`${url}?chefId=${chefId}`);
 }

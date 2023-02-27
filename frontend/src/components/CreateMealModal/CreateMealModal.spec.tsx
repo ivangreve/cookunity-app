@@ -49,10 +49,14 @@ it("Confirm button should be disabled if there is no name and description", asyn
   const descriptionInput = screen.getByRole("textbox", {
     name: /Description/i,
   });
+  const imageInput = screen.getByRole("textbox", { name: /Image URL/i });
 
   await userEvent.type(nameInput, "type something");
   expect(createButton).toBeDisabled();
 
   await userEvent.type(descriptionInput, "type something");
+  expect(createButton).toBeDisabled();
+
+  await userEvent.type(imageInput, "type something");
   expect(createButton).toBeEnabled();
 });

@@ -54,3 +54,20 @@ svg.star-svg {
         margin-left: 5px
     }
 }
+
+
+.meal_card_image_container {
+    position: relative;
+}
+
+.meal_card_remove_icon {
+    float: left !important;
+    position: absolute !important;
+    right: 0px !important;
+    top: 0px !important;
+    color: rgb(202, 96, 96) !important;
+
+    svg {
+        font-size: 35px !important;
+    }
+}

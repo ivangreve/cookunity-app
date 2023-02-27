@@ -124,7 +124,7 @@ export default function CreateMealModal(props: CreateMealModalProps) {
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button
-          disabled={!meal.name || !meal.description}
+          disabled={!meal.name || !meal.description || !meal.image}
           onClick={handleSubmit}
         >
           Create

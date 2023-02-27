@@ -5,12 +5,17 @@ import {
   CardContent,
   CardMedia,
   Divider,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { Rating } from "react-simple-star-rating";
 import { Meal } from "../../models/Meal.model";
-import { rateMeal } from "../../pages/AuthorizedPages/services/meal.service";
+import {
+  deleteMeal,
+  rateMeal,
+} from "../../pages/AuthorizedPages/services/meal.service";
 import { useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { toast } from "react-hot-toast";
 
 interface Params {
@@ -18,6 +23,7 @@ interface Params {
   readonly?: boolean;
   isCustomerCard?: boolean;
   callbackAfterRating?: Function;
+  callbackAfterDelete?: Function;
 }
 
 function MealCard({
@@ -25,6 +31,7 @@ function MealCard({
   readonly = true,
   isCustomerCard = false,
   callbackAfterRating = () => {},
+  callbackAfterDelete = () => {},
 }: Params) {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -47,8 +54,31 @@ function MealCard({
     );
   };
 
-  const handleReset = () => {
-    setRating(0);
+  const handlingDeleteMeal = async () => {
+    setLoading(true);
+    toast.promise(
+      deleteMeal(meal._id).then(async () => {
+        await callbackAfterDelete();
+        setLoading(false);
+      }),
+      {
+        loading: "Removing Meal...",
+        success: <b>Meal removed!</b>,
+        error: <b>Something went wrong 😔</b>,
+      }
+    );
+  };
+
+  const removeButton = () => {
+    return !isCustomerCard ? (
+      <IconButton
+        onClick={handlingDeleteMeal}
+        className="meal_card_remove_icon"
+        aria-label="delete"
+      >
+        <DeleteIcon></DeleteIcon>
+      </IconButton>
+    ) : null;
   };
 
   const ratingBox = () => {
@@ -117,12 +147,15 @@ function MealCard({
         flexDirection: "column",
       }}
     >
-      <CardMedia
-        className="meal_card_media"
-        component="img"
-        image={meal.image}
-        alt="Meat Image"
-      />
+      <div className="meal_card_image_container">
+        {removeButton()}
+        <CardMedia
+          className="meal_card_media"
+          component="img"
+          image={meal.image}
+          alt="Meat Image"
+        />
+      </div>
       <CardContent className="meal_card_content" sx={{ flexGrow: 1 }}>
         <Typography className="meal_card_heading" gutterBottom variant="h6">
           {meal.name}

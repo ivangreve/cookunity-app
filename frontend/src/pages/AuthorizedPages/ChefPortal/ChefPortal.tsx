@@ -156,7 +156,10 @@ export default function ChefPortal() {
         <Grid container spacing={4}>
           {filteredMeals.map((meal) => (
             <Grid item key={meal._id} xs={12} sm={6} md={4}>
-              <MealCard meal={meal}></MealCard>
+              <MealCard
+                meal={meal}
+                callbackAfterDelete={fetchAllMeals}
+              ></MealCard>
             </Grid>
           ))}
         </Grid>
