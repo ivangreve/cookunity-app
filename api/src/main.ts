@@ -8,14 +8,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Api Definition')
-    .setDescription('This is a api definition for the challenge')
+    .setTitle('CookUnity')
+    .setDescription('This is a api definition for a full-stack challenge')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
       'access-token'
     )
     .setVersion('1.0')
-    .addTag('api')
+    .addTag('Api Definition')
     .build();
 
   const document = SwaggerModule.createDocument(app, config, {});

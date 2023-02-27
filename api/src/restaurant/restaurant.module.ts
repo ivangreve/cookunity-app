@@ -10,13 +10,10 @@ import { MealRating, MealRatingSchema } from './schemas/meat-rating.schema';
 import { MealRatingService } from './services/meal-rating.service';
 import { MealService } from './services/meal.service';
 
-
-console.log(process.env.MONGO_CONNECTION)
 @Module({
     imports: [
         /* Necesary for env variables */
         ConfigModule.forRoot(),
-        MongooseModule.forRoot(process.env.MONGO_CONNECTION),
         MongooseModule.forFeature([
             { name: Meal.name, schema: MealSchema },
             { name: MealRating.name, schema: MealRatingSchema },
