@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import {
   Avatar,
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
   Divider,
@@ -92,7 +90,7 @@ function MealCard({
         <div className="meal_card_rating_container">
           <Avatar
             sizes="sm"
-            alt="Meal Image"
+            alt="Chef Image"
             src={meal.chef?.image ? meal.chef.image : ""}
           />
 
@@ -123,7 +121,7 @@ function MealCard({
         className="meal_card_media"
         component="img"
         image={meal.image}
-        alt="random"
+        alt="Meat Image"
       />
       <CardContent className="meal_card_content" sx={{ flexGrow: 1 }}>
         <Typography className="meal_card_heading" gutterBottom variant="h6">

@@ -20,10 +20,7 @@ console.log(process.env.MONGO_CONNECTION)
         MongooseModule.forFeature([
             { name: Meal.name, schema: MealSchema },
             { name: MealRating.name, schema: MealRatingSchema },
-            {
-                name: 'User',
-                schema: UserSchema
-            }
+            { name: 'User', schema: UserSchema }
         ]),
 
     ],

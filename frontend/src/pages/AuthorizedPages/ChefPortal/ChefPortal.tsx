@@ -20,7 +20,7 @@ import SkeletonCards from "../../../components/Skeletons/SkeletonCards/SkeletonC
 export default function ChefPortal() {
   const user = useSelector((state: any) => state.user.user);
   const [meals, setMeals] = useState<Meal[]>([]);
-  const [rateAvg, setRateAvg] = useState("0");
+  const [rateAvg, setRateAvg] = useState(0);
   const [filteredMeals, setFilteredMeals] = useState<Meal[]>([]);
   const [filterByName, setFilterByMeal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +57,7 @@ export default function ChefPortal() {
     const averageRating = ratedMeals.length
       ? totalRatings / ratedMeals.length
       : 0;
-    setRateAvg(averageRating.toFixed(1));
+    setRateAvg(averageRating);
   };
 
   /** Filtering */
@@ -103,10 +103,10 @@ export default function ChefPortal() {
       <h1>🎉Welcome {user && user.name}! 🎉</h1>
 
       <>
-        {rateAvg == "0" ? (
+        {rateAvg === 0 ? (
           <h3>😢 There is no rated meals yet!</h3>
         ) : (
-          <h3>✨🍝 Your rating average: {rateAvg}</h3>
+          <h3>✨🍝 Your rating average: {rateAvg.toFixed(1)}</h3>
         )}
 
         <span
