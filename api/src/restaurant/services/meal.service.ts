@@ -72,7 +72,7 @@ export class MealService {
 
     async delete(id: string): Promise<void> {
         try {
-            const result = await this.mealModel.deleteOne({ id }).exec();
+            const result = await this.mealModel.deleteOne({ _id: id }).exec();
             if (result.deletedCount === 0) {
                 throw new Error(`Meal with id ${id} not found`);
             }

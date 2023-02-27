@@ -55,18 +55,20 @@ function MealCard({
   };
 
   const handlingDeleteMeal = async () => {
-    setLoading(true);
-    toast.promise(
-      deleteMeal(meal._id).then(async () => {
-        await callbackAfterDelete();
-        setLoading(false);
-      }),
-      {
-        loading: "Removing Meal...",
-        success: <b>Meal removed!</b>,
-        error: <b>Something went wrong 😔</b>,
-      }
-    );
+    if (confirm("Do you want delete the meal: " + meal.name + "?")) {
+      setLoading(true);
+      toast.promise(
+        deleteMeal(meal._id).then(async () => {
+          await callbackAfterDelete();
+          setLoading(false);
+        }),
+        {
+          loading: "Removing Meal...",
+          success: <b>Meal removed!</b>,
+          error: <b>Something went wrong 😔</b>,
+        }
+      );
+    }
   };
 
   const removeButton = () => {

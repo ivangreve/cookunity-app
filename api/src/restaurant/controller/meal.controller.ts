@@ -151,7 +151,7 @@ export class MealController {
     @ApiOkResponse({ description: 'The meal has been successfully updated.', type: Meal })
     @ApiBadRequestResponse({ description: 'Invalid request body or missing required fields. Please check the request and try again.' })
     @Put(':id')
-    async update(@Param('mealId') mealId: string, @Body() meal: Meal): Promise<Meal> {
+    async update(@Param('id') mealId: string, @Body() meal: Meal): Promise<Meal> {
         const updatedMeal = await this.mealService.update(mealId, meal);
         return updatedMeal;
     }
@@ -161,9 +161,8 @@ export class MealController {
     @ApiOkResponse({ description: 'The meal has been successfully deleted.' })
     @ApiBadRequestResponse({ description: 'Error deleting meal. Please try again later.' })
     @Delete(':id')
-    async delete(@Param('mealId') mealId: string): Promise<void> {
+    async delete(@Param('id') mealId: string): Promise<void> {
         await this.mealService.delete(mealId);
-
     }
 
 }
