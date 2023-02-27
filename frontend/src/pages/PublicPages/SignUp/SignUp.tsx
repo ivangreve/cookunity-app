@@ -52,12 +52,15 @@ export default function SignInSide() {
           signUpInfo.name,
           signUpInfo.email,
           signUpInfo.password,
-          signUpInfo.image
+          signUpInfo.image,
+          signUpInfo.role
         ),
         {
           loading: "Creating User...",
           success: <b>User Registered!</b>,
-          error: <b>Could not register.</b>,
+          error: (e) => {
+            return <b>{e.data.message}</b>;
+          },
         }
       )
       .then(() => {

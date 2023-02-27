@@ -74,10 +74,12 @@ export default function ChefPortal() {
 
   return (
     <LoggedUserLayout>
-      <h1 style={{ paddingBottom: "25px" }}>Welcome {user && user.name}!</h1>
-      <h2 style={{ paddingBottom: "25px" }}>
-        You can rate the following meals! 🎉😀
-      </h2>
+      <h1 style={{ paddingBottom: "25px" }}>
+        🎉Welcome {user && user.name}!🎉
+      </h1>
+      <h3 style={{ paddingBottom: "25px" }}>
+        😀 You can rate the following meals!
+      </h3>
       <span
         style={{
           display: "flex",

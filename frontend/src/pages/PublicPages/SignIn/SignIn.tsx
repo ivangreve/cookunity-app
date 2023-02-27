@@ -14,6 +14,7 @@ import { PrivateRoutes, Roles } from "../../../models";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../../../store/states/user.state";
+import { toast } from "react-hot-toast";
 
 const theme = createTheme({
   typography: {
@@ -45,18 +46,23 @@ export default function SignInSide() {
       password: data.get("password") + "",
     };
 
-    const response = await signIn(loginInfo.email, loginInfo.password);
-    dispatch(setToken(response.data.token));
-    dispatch(setUser(response.data.user));
+    try {
+      const response = await signIn(loginInfo.email, loginInfo.password);
+      dispatch(setToken(response.data.token));
+      dispatch(setUser(response.data.user));
 
-    const role = response.data.user.role;
-    if (role === Roles.CHEF) {
-      navigation(PrivateRoutes.CHEF_PORTAL);
-      return;
-    }
-    if (role === Roles.CUSTOMER) {
-      navigation(PrivateRoutes.CUSTOMER_PORTAL);
-      return;
+      const role = response.data.user.role;
+      if (role === Roles.CHEF) {
+        navigation(PrivateRoutes.CHEF_PORTAL);
+        return;
+      }
+      if (role === Roles.CUSTOMER) {
+        navigation(PrivateRoutes.CUSTOMER_PORTAL);
+        return;
+      }
+    } catch (e: any) {
+      const errorMessage = e.data.message;
+      toast.error(errorMessage);
     }
   };
 

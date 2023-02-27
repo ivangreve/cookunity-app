@@ -41,7 +41,6 @@ export default function ChefPortal() {
 
   const fetchAllMeals = async () => {
     setIsLoading(true);
-    debugger;
     const meals = await getAllMealsByChef(user._id);
     setMeals(meals.data);
     calculateAvg(meals.data);
@@ -101,10 +100,14 @@ export default function ChefPortal() {
 
   return (
     <LoggedUserLayout>
-      <h1>Welcome {user && user.name}! 😄</h1>
+      <h1>🎉Welcome {user && user.name}! 🎉</h1>
 
       <>
-        <h2>✨🎉 Your rating average: {rateAvg}</h2>
+        {rateAvg == "0" ? (
+          <h3>😢 There is no rated meals yet!</h3>
+        ) : (
+          <h3>✨🍝 Your rating average: {rateAvg}</h3>
+        )}
 
         <span
           style={{

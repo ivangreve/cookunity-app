@@ -29,9 +29,10 @@ axiosClient.interceptors.response.use(
     (error) => {
 
         let res = error.response;
+        if (res.data.path.startsWith("/auth")) return Promise.reject(res);
+
         if (res.status == 401) {
             window.location.href = '/'
-            toast.error("Credenciales invalidas!");
             deleteLocalStorage('user');
             deleteLocalStorage('token');
         }
