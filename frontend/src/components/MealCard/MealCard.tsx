@@ -102,7 +102,6 @@ function MealCard({
             <Rating
               readonly={alreadyRated || loading}
               size={20}
-              allowFraction
               initialValue={meal.your_rating}
               onClick={handleRating}
             />
